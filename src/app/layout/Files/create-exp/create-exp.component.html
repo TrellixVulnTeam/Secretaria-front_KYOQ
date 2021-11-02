@@ -1,0 +1,128 @@
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">Agregar Expediente
+      <div class="d-flex">
+        <div class = "d-flex" *ngIf ="firstSearch">
+            <div *ngIf="empty; else dontEmpty" >
+                <button (click)='saveExp()'
+                type="button"
+                class="btn btn-m btn-success mr-1">
+                Guardar
+                </button>
+            </div>
+            <ng-template #dontEmpty>
+                <button (click)='verExp(fileSearch.search_id)'
+                type="button"
+                class="btn btn-m btn-success mr-1"
+                [routerLink]="['/passes']"  >
+                Ver Pase
+                </button>
+            </ng-template>
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-m btn-danger"
+            [routerLink]="['/listExp']">
+            Volver
+        </button>
+      </div>
+    </div>
+    <p *ngFor="let alert of alerts">
+      <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
+  </p>
+
+    <div class="card-body table-responsive">
+        <div class="row">
+            <div class="col-xl-3 text-xs-center">
+                <div class="card mb-3 d-flex">
+                    <div class="card-body ">
+                        Numero:
+                        <div class="row d-flex justify-content-center m-0 w-100">
+                            <input
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "5"
+                            type="text"
+                            class="col-xl-3 text-center p-0 "
+                            [(ngModel)]="fileSearch.search_dependence_number"
+                            name = "dependence"
+                            id='dependence'>
+
+                            <div class="col-xl-1 text-center p-0 ">-</div>
+
+                            <input
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "7"
+                            type="text"
+                            class="col-xl-5 text-center p-0"
+                            [(ngModel)]="fileSearch.search_number"
+                            name = "number"
+                            id='number'>
+
+                            <div class="col-xl-1 text-center p-0 ">-</div>
+
+                            <input
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "1"
+                            type="text"
+                            class="col-xl-1 text-center p-0"
+                            [(ngModel)]="fileSearch.search_final_number"
+                            name = "final_number"
+                            id='final_number'>
+
+
+                        </div>
+                    </div>
+                    <button
+                    class="btn btn-outline-info small pt-0 pb-0 px-2"
+                    type="button"
+                    (click)="search()"
+                    [routerLink]="" >
+                    <div *ngIf="!firstSearch; else elseBlock">buscar</div>
+                    <ng-template #elseBlock>Nueva Busqueda</ng-template>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xl-6 text-xs-center">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        Iniciador:
+                        <input type="text"
+                         [(ngModel)]="fileSearch.search_initiator"
+                          class="w-100 "
+                          id='initiator'
+                         [disabled]= "!activate ">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 text-xs-center">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        Grupo:
+                       <select class="form-control mr-1 p-0 text-center w-100 h-75"
+                            [disabled]= "!activate"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            [(ngModel)]="fileSearch.search_group">
+                                <option *ngFor="let group of groups" [value]="group.name">
+                                    {{group.name}}
+                                </option>
+                        </select>
+                       </div>
+                </div>
+            </div>
+           <div class="col-xl-12 text-xs-center w100">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        Referencia:
+                        <textarea class="card-body w-100"
+                            [(ngModel)]="fileSearch.search_concept"
+                            rows="3"
+                            id="concept"
+                            [disabled]= "!activate">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

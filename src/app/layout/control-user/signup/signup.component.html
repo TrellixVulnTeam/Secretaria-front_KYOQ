@@ -1,0 +1,59 @@
+<div [@routerTransition] class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo ministerio.jpeg" width="150px" />
+            <h1>Nuevo Usuario</h1>
+            <form role="form">
+                <div class="form-content">
+
+                    <div class="form-group">
+
+                        <p *ngFor="let alert of alerts">
+                            <ngb-alert (close)="closeAlert(alert)" [type]="alert.type">{{ alert.message | translate }}</ngb-alert>
+                        </p>
+
+                        <input
+                            [placeholder]="'Full Name' | translate"
+                            name="name"
+                            [(ngModel)]="user.name"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Email' | translate"
+                            name="email"
+                            [(ngModel)]="user.email"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Password' | translate"
+                            name="password"
+                            [(ngModel)]="user.password"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Repeat Password' | translate"
+                            name="repeatpassword"
+                            [(ngModel)]="repeatpassword"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                        />
+                    </div>
+                </div>
+                <a (click)="signup()" class="btn rounded-btn">{{ 'Register' | translate }}</a
+                >&nbsp;
+                <a [routerLink]="['/login']" class="btn rounded-btn">{{ 'Log in' | translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

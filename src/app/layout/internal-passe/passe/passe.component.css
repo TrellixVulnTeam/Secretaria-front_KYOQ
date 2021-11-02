@@ -1,0 +1,17 @@
+.resaltado {
+    font-size: larger;
+    font-weight: 900;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+.centrado {
+    padding-top: 2px;
+
+}
+
+.peke {
+    font-size: small;
+    padding-right: 6px;
+    padding-left: 6px;
+}

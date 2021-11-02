@@ -1,0 +1,58 @@
+<div [@routerTransition]>
+    <h2 class="text-muted">Principal </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <ngb-carousel>
+                <ng-template *ngFor="let slider of sliders" ngbSlide>
+                    <img
+                        [src]="slider.imagePath"
+                        alt="Random first slide"
+                        class="img-fluid mx-auto d-block"
+                        width="100%"
+                    />
+                    <div class="carousel-caption">
+                       <p style="margin: 0; margin-left: 75px;"> Ministerio de Educación </p>
+                       <p style="margin: 0; margin-left: 75px; font-size: small;"> Secretaría de Educación </p>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+    <hr />
+    <h2 class="text-muted"><small>Acciones</small> </h2>
+    <div class="row justify-content-around">
+        <div class="col-xl-3 col-lg-6"[routerLink]="['/createExp']">
+            <app-stat [bgClass]="'primary'" [count]="" [icon]="'fa-comments'" [label]="'Ingreso Expedientes'"></app-stat>
+        </div>
+
+        <!-- <div class="col-xl-3 col-lg-6">
+            <app-stat
+                [bgClass]="'success'"
+                [count]=""
+                [icon]="'fa-shopping-cart'"
+                [label]="'Salida Expedientes'"
+            ></app-stat>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'warning'" [count]="" [icon]="'fa-tasks'" [label]="'Editar Expediente'"></app-stat>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'danger'" [count]="" [icon]="'fa-support'" [label]="'Eliminar Expediente'"></app-stat>
+        </div>
+
+    </div>
+    <hr />
+    <h2 class="text-muted"><small>Filtros</small> </h2>
+    <div class="row"> -->
+
+        <div class="col-xl-3 col-lg-6" [routerLink]="['/listExp']">
+            <app-stat [bgClass]="'warning'" [count]=" ctdExp.total " [icon]="'fa-tasks'" [label]="'lista Expedientes'"></app-stat>
+        </div>
+
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'danger'"  [icon]="'fa-support'" [label]="'Ver Pases'"></app-stat>
+        </div>
+    </div>
+</div>
