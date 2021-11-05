@@ -12,19 +12,7 @@ export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
 
-    fileSerch = {
-        search_dependence_number : "",
-        search_number : "",
-        search_final_number : "",
-        search_initiator : "",
-        search_concept : "",
-        search_group : "",
-        search_status : 1,
-        page : 1,
-        totPage : 0,
-        perPage: 25
-    };
-    ctdExp : any;
+    total_file : any;
 
     constructor( private DB : DbService ) {
         this.sliders.push(
@@ -67,11 +55,19 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         localStorage.setItem('route', "/dashboard");
-        this.DB.search(this.fileSerch).subscribe(
 
-       data => {
-                this.ctdExp = data;
-            });
+        this.DB.file_total().subscribe({
+            next: data =>{
+                this.total_file = data;
+                console.log(data);
+
+
+            },
+            error: err =>{
+                console.log('porner el error');
+
+            }
+        })
     }
 
     public closeAlert(alert: any) {

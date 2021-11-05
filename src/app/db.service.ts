@@ -50,6 +50,27 @@ logout(type, token){
     return this.http.get(this.url + "/auth/logout", httpOptions);
     }
 
+
+file_total(){
+    return this.http.get(this.url + "/files/total");
+}
+
+File_list(){
+    return this.http.get(this.url + "/files");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
     listGroup (){
         return this.http.get(this.url + "/group");
     }
