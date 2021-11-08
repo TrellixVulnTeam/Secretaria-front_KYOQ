@@ -59,9 +59,21 @@ File_list(){
     return this.http.get(this.url + "/files");
 }
 
+Agrupations_list(){
+    return this.http.get(this.url + "/agrupations");
+}
 
+GoToUrl(url:any){
+    return this.http.get(url);
+}
 
+File_update(data:any){
+    return this.http.post(this.url + '/files/update', data);
+}
 
+File_search(data:any){
+    return this.http.post(this.url + '/files/search', data);
+}
 
 
 
