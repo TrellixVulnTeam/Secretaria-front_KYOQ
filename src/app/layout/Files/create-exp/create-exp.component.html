@@ -10,7 +10,7 @@
                 </button>
             </div>
             <ng-template #dontEmpty>
-                <button (click)='verExp(fileSearch.search_id)'
+                <button (click)='see_passe(fileSearch.search_id)'
                 type="button"
                 class="btn btn-m btn-success mr-1"
                 [routerLink]="['/passes']"  >
@@ -38,41 +38,44 @@
                     <div class="card-body ">
                         Numero:
                         <div class="row d-flex justify-content-center m-0 w-100">
-                            <input
+                            <input #N1
                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "5"
                             type="text"
-                            class="col-xl-3 text-center p-0 "
+                            class="col-xl-4 text-center p-0 "
                             [(ngModel)]="fileSearch.search_dependence_number"
+                            (ngModelChange) = "changeFocus(1)"
                             name = "dependence"
                             id='dependence'>
 
                             <div class="col-xl-1 text-center p-0 ">-</div>
 
-                            <input
+                            <input #N2
                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "7"
                             type="text"
                             class="col-xl-5 text-center p-0"
                             [(ngModel)]="fileSearch.search_number"
+                            (ngModelChange) = "changeFocus(2)"
                             name = "number"
                             id='number'>
 
                             <div class="col-xl-1 text-center p-0 ">-</div>
 
-                            <input
+                            <input #N3
                             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                             maxlength = "1"
                             type="text"
                             class="col-xl-1 text-center p-0"
                             [(ngModel)]="fileSearch.search_final_number"
+                            (ngModelChange) = "changeFocus(3)"
                             name = "final_number"
                             id='final_number'>
 
 
                         </div>
                     </div>
-                    <button
+                    <button #BSearch
                     class="btn btn-outline-info small pt-0 pb-0 px-2"
                     type="button"
                     (click)="search()"
@@ -98,7 +101,20 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         Grupo:
-                       <select class="form-control mr-1 p-0 text-center w-100 h-75"
+                       <select *ngIf="activate; else elseBlockGroup"
+                            class="form-control mr-1 p-0 text-center w-100 h-75"
+                            [disabled]= "!activate"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            [(ngModel)]="fileSearch.search_group">
+                                <option *ngFor="let group of groups" [value]="group.id">
+                                    {{group.name}}
+                                </option>
+                        </select>
+
+                        <ng-template #elseBlockGroup>
+                            <select
+                            class="form-control mr-1 p-0 text-center w-100 h-75"
                             [disabled]= "!activate"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
@@ -107,6 +123,8 @@
                                     {{group.name}}
                                 </option>
                         </select>
+                        </ng-template>
+
                        </div>
                 </div>
             </div>

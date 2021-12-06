@@ -20,15 +20,15 @@ export class DashboardComponent implements OnInit {
 
         this.sliders.push(
             {
-                imagePath: 'assets/images/logo ministerio.jpg',
+                imagePath: 'assets/images/logo ministerio-new.jpg',
                 label: 'First slide label',
                 text: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
             },
-            // {
-                //     imagePath: 'assets/images/slider2.jpg',
-                //     label: 'Second slide label',
-                //     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                // },
+            {
+                 imagePath: 'assets/images/logo SCE.jpg',
+                 label: 'Second slide label',
+                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            },
                 // {
                     //     imagePath: 'assets/images/slider3.jpg',
                     //     label: 'Third slide label',
@@ -64,22 +64,20 @@ export class DashboardComponent implements OnInit {
                             },
 
                             error: err =>{
-                                console.log('porner el error');
+                                console.log(err);
 
                             }
                         });
 
 
-
-
-                        localStorage.setItem('route', "/dashboard");
-
                         this.DB.file_total().subscribe({
                             next: data =>{
                                 this.total_file = data;
+                                console.log(data);
+
                             },
                             error: err =>{
-                                console.log('porner el error');
+                                console.log(err);
 
                             }
                         })

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { error } from 'console';
+import { ViewChild, Component, OnInit, ElementRef, HostListener, SimpleChanges} from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
 import { DbService } from "../../../db.service";
 
@@ -12,6 +12,7 @@ export class ListExpComponent implements OnInit {
 
     files:any;
     agrupations:any;
+    users:any;
 
     editing: null;
 
@@ -22,17 +23,38 @@ export class ListExpComponent implements OnInit {
         search_initiator : "",
         search_concept : "",
         search_agrupation_id : "",
-        search_status : 1,
-        page : 1,
-        totPage : 0,
-        perPage: 25
+        search_status : "1",
+        search_site_id : localStorage.getItem("id"),
+        perPage: 10
     };
 
     public alerts: Array<any> = [];
 
-    constructor(private DB: DbService, private DATA: DataService) {
+
+    @ViewChild('N1') N1:ElementRef;
+    @ViewChild('N2') N2:ElementRef;
+    @ViewChild('N3') N3:ElementRef;
+    @ViewChild('BSearch') BSearch:ElementRef;
+
+    @HostListener('window:keyup', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+    switch (event.key) {
+        case 'Enter':
+            this.search();
+            break;
+
+        case "Escape":
+            this.router.navigate(['/dashboard']);
 
 
+            break;
+
+        default:
+            break;
+    }
+  }
+
+    constructor(private DB: DbService, private DATA: DataService, private router: Router) {
 
         this.alerts = this.DB.alerts;
 
@@ -40,12 +62,12 @@ export class ListExpComponent implements OnInit {
 
 
 
+
     ngOnInit(): void {
-            this.DB.File_list().subscribe({
+            this.DB.File_search(this.fileSerch).subscribe({
                 next:
                      data =>{
                          this.files = data;
-                         console.log(this.files);
 
                         }});
 
@@ -55,9 +77,18 @@ export class ListExpComponent implements OnInit {
                         this.agrupations = data;
                     }});
 
-        console.log(this.agrupations);
 
+            this.DB.userList().subscribe({
+                next: data=>{
+                    this.users = data;
+                }
+            })
     }
+
+    ngAfterViewInit() {
+        this.N1.nativeElement.focus();
+      }
+
 
 ////////////////////modification files//////////////////////////////
 
@@ -99,6 +130,7 @@ export class ListExpComponent implements OnInit {
                         type: 'success',
                         message: "Expediente Modificado"
                     })
+                    this.ngOnInit();
                 },
                     error:
                         err =>{
@@ -107,10 +139,10 @@ export class ListExpComponent implements OnInit {
                                 type: 'danger',
                                 message: err
                         });
-                     this.ngOnInit();
 
-                 }});
-        this.editing = null;
+                    }});
+                    this.fileSerch.search_agrupation_id = "";
+                    this.editing = null;
     }
 
 ////////////////////seach file//////////////////////////////
@@ -118,6 +150,9 @@ export class ListExpComponent implements OnInit {
     public search(){
 
         console.log(this.fileSerch);
+        if(this.fileSerch.search_status ){
+            this.fileSerch.search_status = "1"
+        }else{this.fileSerch.search_status = "0"}
 
        if(this.fileSerch!= null){
 
@@ -128,26 +163,25 @@ export class ListExpComponent implements OnInit {
                     console.log(this.files);
 
                 }});
-            }else{
-                this.DB.File_list().subscribe({
-                    next:
-                         data =>{
-                             this.files = data;
-                             console.log(this.files);
-
-                            }});
-
             }
-
 
     }
 
+////////////////////see_passe////////////////////////////////
+    public see_passe(id_file){
+        this.DATA.file = this.files.data.filter(x => x.id == id_file)
+    }
 
 ////////////////////paginations//////////////////////////////
 
     public goToUrl(url:any){
+console.log(this.fileSerch);
+        const data = {
+            search_site_id: this.fileSerch.search_site_id,
+            search_status: this.fileSerch.search_status
 
-        this.DB.GoToUrl(url).subscribe({
+        }
+        this.DB.GoToUrlFile(url, data).subscribe({
             next:
                  data =>{
                      this.files = data;
@@ -164,4 +198,19 @@ export class ListExpComponent implements OnInit {
         this.alerts.splice(index, 1);
     }
 
+    public changeFocus(n){
+
+        if (n === 1 && this.fileSerch.search_dependence_number.length === 5){
+        console.log("cambia " + n);
+        this.N2.nativeElement.focus();}
+
+        if (n === 2 && this.fileSerch.search_central_number.length === 7){
+        console.log("cambia " + n);
+        this.N3.nativeElement.focus();}
+
+        if (n === 3 && this.fileSerch.search_final_number.length === 1){
+            console.log("cambia " + n);
+            this.BSearch.nativeElement.focus();}
+
+    }
 }

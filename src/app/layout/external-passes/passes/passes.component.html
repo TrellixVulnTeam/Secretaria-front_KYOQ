@@ -1,9 +1,11 @@
+
+<!-- ////////////////////////////////header///////////////////////////// -->
 <div [@routerTransition]>
     <div class="card mb-3 ">
         <div class="card-header d-flex justify-content-between">
             <div class="d-flex"> Pases de Expediente N°
                 <div class="ml-2 " style="font-weight: 900;">
-                    {{fileSerch.dependence_number}}-{{fileSerch.number}}-{{fileSerch.final_number}}
+                    {{file.dependence_number}}-{{file.central_number}}-{{file.final_number}}
                 </div>
             </div>
             <button
@@ -28,7 +30,7 @@
                         <textarea type="text"
                             rows="2"
                             class="form-control mr-1  p-0 text-center"
-                            [(ngModel)]="fileSerch.initiator"
+                            [(ngModel)]="file.initiator"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
                             disabled>
@@ -37,7 +39,7 @@
                     <td class="col-xl-5">
                         <textarea type="text"
                             class="form-control mr-1  p-0 text-center"
-                            [(ngModel)]="fileSerch.concept"
+                            [(ngModel)]="file.concept"
                             aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-sm"
                             disabled>
@@ -47,7 +49,7 @@
                     <td class="col-xl-2 mr-4">
                         <textarea type="text"
                         class="form-control mr-1 p-0 text-center"
-                        [(ngModel)]="fileSerch.group"
+                        [(ngModel)]="file.agrupation.name"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
                         disabled>
@@ -55,79 +57,32 @@
                     </td>
             </tbody>
         </table>
-        </div>
-        <p *ngFor="let alert of alerts">
-            <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
-        </p>
+    </div>
+
+<!-- //////////////////////////////////ALERTS//////////////////////////// -->
+<p *ngFor="let alert of alerts" class="small">
+    <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
+</p>
+
+<!-- //////////////////////////////////TABLA//////////////////////////// -->
         <div class="card-body table-responsive p-0">
             <table class="table table-hover table-striped mb-0">
                 <thead>
                     <tr class="mx-auto">
-                        <th class="small pt-0 pb-0 px-2">N°</th>
-                        <th class="small pt-0 pb-0 px-2 ">Desde</th>
-                        <th class="small pt-0 pb-0 px-2">Fecha Ingreso</th>
+                        <th style="width: 3px;" class="small pt-0 pb-0 px-2">N°</th>
+                        <th style="width: 200px;" class="small pt-0 pb-0 px-2 ">Desde</th>
+                        <th style="width:100px;" class="small pt-0 pb-0 px-2">Fecha Ingreso</th>
                         <th class="small pt-0 pb-0 px-2">Respuesta</th>
-                        <th class="small pt-0 pb-0 px-2">Responsable</th>
-                        <th class="small pt-0 pb-0 px-2">Destino</th>
-                        <th class="small pt-0 pb-0 px-2">Fecha Salida</th>
-                        <th class="small pt-0 pb-0 px-2">
-                            <button
-                                class="btn btn-outline-info pt-0 pb-0 px-2  mt-1 small "
-                                type="button"
-                                (click)="exportProvi()">
-                                    Imprimir
-                            </button>
-                        </th>
+                        <th style="width:200px;" class="small pt-0 pb-0 px-2">En Posesión de</th>
+                        <th style="width:200px;" class="small pt-0 pb-0 px-2">Destino</th>
+                        <th style="width: 100px;" class="small pt-0 pb-0 px-2">Fecha Salida</th>
+                        <th style="width: 115px;" class="small pt-0 pb-0 px-2"></th>
+
                     </tr>
                 </thead>
                 <tbody >
-                    <tr *ngFor="let passe of passes.data; let i = index ">
-                        <td width="4" class="small pt-0 pb-0 px-2" > {{(i+1)+((currentPage-1)*25)}} </td>
-                        <td width="150"class="small pt-0 pb-0 px-2" > {{passe.from}} </td>
-                        <td width="150" class="small pt-0 pb-0 px-2" > {{passe.from_date}} </td>
-                        <td width="400" class="small pt-0 pb-0 px-2" > {{passe.response}} </td>
-                        <td width="150" class="small pt-0 pb-0 px-2"> {{passe.responsable}} </td>
-                        <td width="150"class="small pt-0 pb-0 px-2 "
-
-                        *ngIf="passe.status == 'false';else elseTo"> {{passe.to}} </td>
-                        <ng-template #elseTo >
-                        <td width="150"class="small pt-1 pb-0 px-2 " >
-                            <select class="form-control small mr-1 p-0 text-center w-100 h-75 "
-                                    aria-label="Sizing example input"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                    [(ngModel)]="newPasse.to">
-                                        <option *ngFor="let office of offices" [value]="">
-                                    {{office.name}}
-                                        </option>
-                            </select>
-                            </td>
-                        </ng-template>
-
-                        <td width="150" class="small pt-0 pb-0 px-2 "
-                        *ngIf="passe.status == 'false';else elseBlock"> {{passe.to_date}} </td>
-                        <ng-template #elseBlock >
-                            <td  width="100" class="m-0 p-1"><input type="date" class="small w-100"  [(ngModel)]="newPasse.to_date"></td>
-                        </ng-template>
-
-                        <td class="d-flex justify-content-center p-0 m-0 b-0">
-
-                            <button
-                                class="btn btn-outline-primary pt-0 pb-0 px-2  mt-1 "
-                                type="button"
-                                (click)="seePasse(passe.id)"
-                                [routerLink]="['/passe']" >
-                                    ver
-                            </button>
-                            <button *ngIf="passe.status == 'true'"
-                            class="btn btn-outline-success pt-0 pb-0 px-2  ml-1 mt-1 "
-                            type="button"
-                            (click)="updatePasse(passe.id)">
-                                Cerrar
-                        </button>
-                        </td>
-                    </tr>
                     <tr *ngIf="!closed" >
-                        <td width="4" class="small m-0 p-1"> {{passes.total + 1}} </td>
+                        <td class="small m-0 p-1"> {{passes.total + 1}} </td>
 
                         <td class="m-0 p-1">
 
@@ -135,26 +90,28 @@
                                 aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm"
                                 [(ngModel)]="newPasse.from">
-                                    <option *ngFor="let office of offices" [value]="">
+                                    <option></option>
+                                    <option *ngFor="let office of offices" [value]="office.id">
                                         {{office.name}}
                                     </option>
                             </select>
 
-                        <td  width="100" class="m-0 p-1"><input type="date" class="small w-100 " [(ngModel)]="newPasse.from_date"></td>
-                        <td  width="200" class="m-0 p-0 pt-1 px-1"><textarea style="height:25px;" small type="text" class="small b-0 p-0 m-0 w-100" disabled [(ngModel)]="newPasse.response"></textarea></td>
-                        <td  width="130" class="m-0 p-1"><input type="text" class="small w-100" [(ngModel)]="newPasse.responsable"   disabled></td>
+                            <td class="small pt-0 pb-0 px-2"> {{newPasse.from_date}} </td>
+                        <td  class="m-0 p-0 pt-1 px-1"><textarea style="height:25px;" small type="text" class="small b-0 p-0 m-0 w-100" disabled [(ngModel)]="newPasse.response"></textarea></td>
+                        <td  class="m-0 p-1"><input type="text" class="small w-100" [(ngModel)]="newPasse.responsable_mame"   disabled></td>
 
                         <select class="form-control small mr-1 p-0 text-center w-100 h-75 " disabled
                                 aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-sm"
                                 [(ngModel)]="newPasse.to">
-                                    <option *ngFor="let office of offices" [value]="">
+                                <option></option>
+                                    <option *ngFor="let office of offices" [value]="office.id">
                                         {{office.name}}
                                     </option>
                             </select>
 
-                        <td  width="100" class="m-0 p-1"><input type="date" class="small w-100" disabled [(ngModel)]="newPasse.to_date"></td>
-                        <td width="100" class="m-0 p-1 d-flex justify-content-center">
+                            <td class="small pt-0 pb-0 px-2"> {{newPasse.to_date}} </td>
+                        <td class="m-0 p-1 d-flex justify-content-center">
                             <button
                                 class="btn btn-outline-success small p-0 px-1 m-0 h-100"
                                 aria-label="Sizing example input"
@@ -165,10 +122,126 @@
                             </button>
                         </td>
                     </tr>
-                </tbody>
+                    <tr *ngFor="let passe of passes.data; let i = index ">
+                        <td class="small pt-0 pb-0 px-2" > {{passes.from + i}} </td>
+                        <td class="small pt-0 pb-0 px-2" >  {{passe.from__office.name}} </td>
+                        <td class="small pt-0 pb-0 px-2" > {{passe.from_date}}</td>
+                        <td class="small pt-0 pb-0 px-2" > {{passe.response}} </td>
+
+                        <td class="small pt-0 pb-0 px-2"> {{passe.user.name}} </td>
+                        <td class="small pt-0 pb-0 px-2 "
+
+                        *ngIf="passe.status; else elseTo"> {{passe.to__office.name}} </td>
+                        <ng-template #elseTo >
+                            <td class="small pt-1 pb-0 px-2 " *ngIf="!editing ; else elseComplete">
+                                {{passe.to__office.name}}
+                            </td>
+
+                            <ng-template #elseComplete>
+                                <select class="form-control small mr-1 p-0 text-center w-100 h-75 "
+                                        aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        [(ngModel)]="newPasse.to">
+                                            <option *ngFor="let office of offices" [value]="office.id">
+                                        {{office.name}}
+                                            </option>
+                                </select>
+                            </ng-template>
+                        </ng-template>
+
+                        <td style=" padding: 0; padding-right: 5px;" *ngIf="!passe.status; else elseClose" >
+
+
+                            <div style="display: flex; justify-content: space-between;">
+
+                                <div *ngIf = "!passe.status" style="display: flex;">
+
+                                <button *ngIf="!editing"
+                                    style="font-size: small;"
+                                    class="btn btn-outline-warning pt-0 pb-0 px-2  ml-1 mt-1 "
+                                    type="button"
+                                    (click)="editPasse()">
+                                        Editar
+                                </button>
+
+                                    <button *ngIf="editing || passe.to == null; else elseSave"
+                                        class="btn btn-outline-success pt-0 pb-0 px-2  ml-1 mt-1 "
+                                        type="button"
+                                        (click)="updatePasse(i)">
+                                            guardar
+                                    </button>
+
+                                    <ng-template #elseSave>
+                                        <button
+                                            style="font-size: small;"
+                                            class="btn btn-outline-success pt-0 pb-0 px-2  ml-1 mt-1 small"
+                                            type="button"
+                                            (click)="close_external_passe(i)">
+                                                Cerrar
+                                        </button>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </td>
+
+                        <ng-template #elseClose>
+                            <td class="small pt-0 pb-0 px-2"> {{passe.to_date}} </td>
+                        </ng-template>
+
+                        <td style= "padding: 0; padding-right: 5px; ">
+                            <div style="display: flex;justify-content: space-between; ">
+                                <button
+                                    style="font-size: small;"
+                                    class="btn btn-outline-primary pt-0 pb-0 px-2  mt-1 small"
+                                    type="button"
+                                    (click)="seePasse(passe.id)"
+                                    [routerLink]="['/passe']" >
+                                        ver
+                                </button>
+                                    <button *ngIf="!passe.status && passe.to && passe.response "
+                                    style="font-size: small;"
+                                        class="btn btn-outline-info pt-0 pb-0 px-2  mt-1 small "
+                                        type="button"
+                                        (click)="exports(passe.id)">
+                                            Imprimir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                   </tbody>
             </table>
 
         </div>
     </div>
 </div>
+
+
+
+<!-- pagination -->
+<nav aria-label="Page navigation example" class="d-flex justify-content-center ">
+    <ul class="pagination" *ngFor = " let item of passes.links; let i = index">
+
+        <div *ngIf="item.active; else noActive">
+            <li class="page-item active"  >
+                <a class="page-link p-0 pl-1 pr-1 active" style="margin: 1px;" [innerHTML]= item.label></a>
+            </li>
+        </div>
+        <ng-template #noActive >
+
+
+            <ng-container *ngIf="(passes.current_page === passes.last_page && i == passes.last_page +1) || (passes.current_page === 1 && i ==0)    ; else elseTemplate">
+                <li class="page-item disabled">
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;" [innerHTML]= item.label></p>
+                </li>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <li class="page-item"  >
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;"  (click)="goToUrl(item.url)" [innerHTML]= item.label></p>
+                </li>
+            </ng-template>
+
+        </ng-template>
+    </ul>
+</nav>
+<!-- pagination end -->
 

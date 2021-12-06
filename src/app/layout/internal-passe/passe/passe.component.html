@@ -1,15 +1,23 @@
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between">
         <div class="d-flex"> Expediente N°
-            <div class="ml-2" style="font-weight: 900;"> {{fileSerch.dependence_number}}-{{fileSerch.number}}-{{fileSerch.final_number}} </div>
+            <div class="ml-2" style="font-weight: 900;"> {{file[0].dependence_number}}-{{file[0].central_number}}-{{file[0].final_number}} </div>
         </div>
-        <button (click)= 'cancelBtn()'
+        <button
             type="button" class="btn btn-m btn-danger"
             [routerLink]="['/passes']" >
             Volver
         </button>
     </div>
 <div>
+
+<!-- //////////////////////////////////ALERTS//////////////////////////// -->
+    <p *ngFor="let alert of alerts"class="small">
+        <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
+    </p>
+
+
+<!-- //////////////////////////////////TABLET//////////////////////////// -->
     <table class="table table-hover table-striped m-0">
         <thead class="">
             <tr class="mx-auto row">
@@ -24,7 +32,7 @@
                     <textarea type="text"
                         rows="2"
                         class="form-control mr-1  p-0 text-center"
-                        [(ngModel)]="fileSerch.initiator"
+                        [(ngModel)]="file[0].initiator"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
                         disabled>
@@ -33,7 +41,7 @@
                 <td class="col-xl-5">
                     <textarea type="text"
                         class="form-control mr-1  p-0 text-center"
-                        [(ngModel)]="fileSerch.concept"
+                        [(ngModel)]="file[0].concept"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
                         disabled>
@@ -43,7 +51,7 @@
                 <td class="col-xl-2 mr-4">
                     <textarea type="text"
                     class="form-control mr-1 p-0 text-center"
-                    [(ngModel)]="fileSerch.group"
+                    [(ngModel)]="file[0].agrupation.name"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
                     disabled>
@@ -55,8 +63,8 @@
 
     <div class="card  small">
         <div class="card-header d-flex justify-content-between p-0">
-            <div class="d-flex"> <div class="centrado"> Pase desde</div> <div class="resaltado">{{  passeSearch.from }}</div> <div class="centrado"> ingresado el </div> <div class="resaltado">{{ passeSearch.from_date | date: 'shortDate'}}</div>
-                <div class="ml-2" style="font-weight: 900;"> {{passe.id}} </div>
+            <div class="d-flex"> <div class="centrado"> Pase desde</div> <div class="resaltado">{{ external_passe_from[0].name }}</div> <div class="centrado"> ingresado el </div> <div class="resaltado">{{ external_passe.from_date | date: 'shortDate'}}</div>
+                <div class="ml-2" style="font-weight: 900;"> {{external_passe_from.id}} </div>
             </div>
         </div>
     <div>
@@ -65,76 +73,93 @@
         <table class="table table-hover table-striped">
             <thead>
                 <tr class="mx-auto">
-                    <th class="small pt-0 pb-0 px-2 ">N°</th>
-                    <th class="small pt-0 pb-0 px-2 ">Desde</th>
-                    <th class="small pt-0 pb-0 px-2">Fecha Ingreso</th>
+                    <th style="width: 3px;"  class="small pt-0 pb-0 px-2 ">N°</th>
+                    <th style="width: 80px;" class="small pt-0 pb-0 px-2 ">Desde</th>
+                    <th style="width: 80px;" class="small pt-0 pb-0 px-2">Fecha Ingreso</th>
                     <th class="small pt-0 pb-0 px-2">Respuesta</th>
-                    <th class="small pt-0 pb-0 px-2">Hacia</th>
-                    <th class="small pt-0 pb-0 px-2">Fecha salida</th>
-                    <th class="small pt-0 pb-0 px-2">Responsable</th>
-                    <th class="small pt-0 pb-0 px-2"></th>
-
+                    <th style="width: 100px;" class="small pt-0 pb-0 px-2">Hacia</th>
+                    <th style="width: 80px;" class="small pt-0 pb-0 px-2">Fecha salida</th>
+                    <th style="width: 80px;" class="small pt-0 pb-0 px-2">Responsable</th>
                 </tr>
             </thead>
             <tbody >
-                <tr *ngFor="let item of passe.data; let i = index " >
-                    <td width="4" class="small pt-0 pb-0 px-1 b-0 " > {{i + 1}} </td>
-                    <td width="150"class="small pt-0 pb-0 px-1 b-0" > {{item.from}} </td>
-                    <td width="150" class="small pt-0 pb-0 px-1 b-0" > {{item.from_date}} </td>
+                <tr *ngFor="let item of internal_passes.data; let i = index ">
+                    <td class="small pt-0 pb-0 px-1 b-0 " > {{ internal_passes.from + i}} </td>
+                    <td class="small pt-0 pb-0 px-1 b-0" > {{item.from.name}} </td>
+                    <td class="small pt-0 pb-0 px-1 b-0" > {{item.from_date}} </td>
 
-                    <td width="400" class="small pt-0 pb-0 px-1 b-0" >
-                        <textarea rows="2" cols="60"*ngIf="item.to_date != null; else ElseResponse" disabled > {{item.response}}</textarea>
-
+                    <td class="small pt-0 pb-0 px-1 b-0" >
+                        <textarea rows="2" style="width: 100%;" *ngIf="item.status || !fileClose; else ElseResponse" disabled > {{item.response}}</textarea>
                         <ng-template #ElseResponse>
-                            <textarea rows="2" cols="60"  [(ngModel)]="newInternalPasse.response"> {{item.response}}</textarea>
+                            <textarea rows="2" style="width: 100%;" [(ngModel)]="newInternalPasse.response"> {{item.response}}</textarea>
+                        </ng-template>
+                    </td>
+
+                    <td class="small pt-0 pb-0 px-1 b-0"*ngIf="item.status ; else ElseTo" > {{item.to.name}} </td>
+                        <ng-template #ElseTo>
+                           <div class="center">
+                                    <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                                        aria-label="Sizing example input"
+                                        aria-describedby="inputGroup-sizing-sm"
+                                        [(ngModel)]="newInternalPasse.to">
+                                            <option></option>
+                                            <option  *ngFor="let user of users" [value]="user.id" >
+                                                {{user.name}}
+                                        </option>
+                                    </select>
+                                </div>
                         </ng-template>
 
-                    </td>
-
-
-                    <td width="150"class="small pt-0 pb-0 px-1 b-0"*ngIf="item.to_date != null; else ElseTo" > {{item.to}} </td>
-                    <ng-template #ElseTo>
-                        <td width="150"class="small pt-1 pb-0 px-1 b-0 ">
-                            <div class="center">
-                                <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
-                                aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-sm"
-                                [(ngModel)]="newInternalPasse.to">
-                                <option  *ngFor="let user of users" >
-                                    {{user.name}}
-                                </option>
-
-                            </select>
-                        </div>
-                    </td>
-                </ng-template>
-                <td width="150" class="small pt-0 pb-0 px-1 b-0" *ngIf="item.to_date != null; else ElseToDate"> {{item.to_date}} </td>
+                <td class="small pt-0 pb-0 px-1 b-0" *ngIf="item.status; else ElseToDate"> {{item.to_date}} </td>
                 <ng-template #ElseToDate>
-                    <td width="150"class="small pt-1 pb-0 px-1 b-0 ">
-                        <input type="date" class="m-0 b-0 pr-0 pl-1 pt-1 pb-0"  [(ngModel)]="newInternalPasse.to_date"> </td>
+                    <td width="150"class="small pt-1 pb-0 px-1 b-0 ">{{" "}}</td>
                     </ng-template>
-                    <td width="75" class="small pt-0 pb-0 px-1 b-0">
-                         <div class="center">{{item.responsable}} </div>
+
+                    <td class="small pt-0 pb-0 px-1 b-0" *ngIf="item.status || !fileClose; else ElseResponsable">
+                         <div class="center">{{item.responsable.name}}</div>
                     </td>
+                    <ng-template #ElseResponsable>
                     <td class="d-flex justify-content-center m-0 b-0 pr-0 pl-1 pt-1 pb-0">
                         <button *ngIf="item.to_date == null;"
                         class="btn btn-outline-success pt-0 pb-0 px-2  ml-1  "
                             type="button"
-                            (click)="updatePasse(item.id)">
+                            (click)="internal_passe_update(item.id)">
                                 Guardar
                         </button>
                     </td>
+                    </ng-template>
 
                 </tr>
             </tbody>
         </table>
+       </div>
+      </div>
     </div>
+</div>
+<!-- pagination -->
+<nav aria-label="Page navigation example" class="d-flex justify-content-center ">
+    <ul class="pagination" *ngFor = " let item of internal_passes.links; let i = index">
+
+        <div *ngIf="item.active; else noActive">
+            <li class="page-item active"  >
+                <a class="page-link p-0 pl-1 pr-1 active" style="margin: 1px;" [innerHTML]= item.label></a>
+            </li>
+        </div>
+        <ng-template #noActive >
 
 
+            <ng-container *ngIf="(internal_passes.current_page === internal_passes.last_page && i == internal_passes.last_page +1) || (internal_passes.current_page === 1 && i ==0)    ; else elseTemplate">
+                <li class="page-item disabled">
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;" [innerHTML]= item.label></p>
+                </li>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <li class="page-item"  >
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;"  (click)="goToUrl(item.url)" [innerHTML]= item.label></p>
+                </li>
+            </ng-template>
 
+        </ng-template>
+    </ul>
+</nav>
 
-    <p *ngFor="let alert of alerts">
-        <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
-    </p>
-
-    </div>

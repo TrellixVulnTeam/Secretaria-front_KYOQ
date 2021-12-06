@@ -14,6 +14,7 @@ export class DbService {
 
   constructor(private http: HttpClient) { }
 
+  ///////////////////////////////USERS////////////////////////////////////
   login(user:any): Observable<any>{
 
         var email = user.email;
@@ -50,21 +51,15 @@ logout(type, token){
     return this.http.get(this.url + "/auth/logout", httpOptions);
     }
 
+///////////////////////////////FILES////////////////////////////////////
 
 file_total(){
     return this.http.get(this.url + "/files/total");
 }
 
-File_list(){
-    return this.http.get(this.url + "/files");
-}
+File_list(status:any){
 
-Agrupations_list(){
-    return this.http.get(this.url + "/agrupations");
-}
-
-GoToUrl(url:any){
-    return this.http.get(url);
+    return this.http.get(this.url + "/files/store/"+status);
 }
 
 File_update(data:any){
@@ -75,75 +70,84 @@ File_search(data:any){
     return this.http.post(this.url + '/files/search', data);
 }
 
+File_validation_create(data:any){
+    return this.http.post(this.url + '/files/validation_create', data);
+}
+
+File_create(data:any){
+    return this.http.post(this.url + '/files/create', data);
+}
+
+File_close(status:any){
+
+    return this.http.get(this.url + "/files/close/"+status);
+}
+
+///////////////////////////////EXTERNAL PASSE///////////////////////////
+
+External_passe_create(newPasse:any){
+    return this.http.post<any>(this.url + '/external_passe/create', newPasse);
+}
+
+External_passe_list(){
+    return this.http.get(this.url + "/external_passe");
+}
+
+External_passe_search(id_file:any){
+    return this.http.get(this.url + "/external_passe/"+ id_file);
+}
+
+External_passe_update(external_passe){
+    return this.http.post(this.url + "/external_passe/update", external_passe);
+}
+
+External_passe_export(id){
+
+    window.open(this.url + "/exports/" + id, "_blank");
+    //return this.http.get(this.url + "/exports/" + id);
+}
+
+External_passe_close(external_passe_id){
+    return this.http.get(this.url + "/external_passe/close/" + external_passe_id);
+}
+
+
+///////////////////////////////INTERNAL PASSE///////////////////////////
+
+internal_passe_create(newPasse:any){
+    return this.http.post<any>(this.url + '/internal_passe/create', newPasse);
+}
+
+internal_passe_list(){
+    return this.http.get(this.url + "/internal_passe");
+}
+
+internal_passe_search(External_passe_id:any){
+    return this.http.get(this.url + "/internal_passe/"+ External_passe_id);
+}
+
+internal_passe_update(internal_passe){
+    return this.http.post(this.url + "/internal_passe/update", internal_passe);
+}
 
 
 
+///////////////////////////////OTHER////////////////////////////////////
 
+Offices_list(){
+    return this.http.get(this.url + "/offices");
+}
 
+Agrupations_list(){
+    return this.http.get(this.url + "/agrupations");
+}
 
+GoToUrl(url:any){
+    return this.http.get(url);
+}
 
+GoToUrlFile(url:any,search:any){
+    return this.http.post(url, search);
+}
 
-    listGroup (){
-        return this.http.get(this.url + "/group");
-    }
-
-    listOffices(){
-        return this.http.get(this.url + "/office");
-    }
-
-    createExp (exp:any){
-        return this.http.post<any>(this.url + '/files', exp);
-    }
-
-    listExp( page:any ){
-        return this.http.get(page);
-    }
-
-    editExp( exp:any){
-        return this.http.post<any>(this.url + "/files/edit", exp);
-    }
-    searhExp(id){
-        return this.http.get(this.url + "/file/"+ id);
-    }
-
-
-    search (file:any){
-        return this.http.post<any>(this.url + '/files/search?page=' + file.page, file);
-    }
-
-    searchPasse(id:any){
-        return this.http.get(this.url + "/passes/passe/"+ id);
-    }
-
-    createPasses(newPasse:any){
-        return this.http.post<any>(this.url + '/passes/create', newPasse);
-    }
-
-    searchPasses(id_exp:any){
-        return this.http.get(this.url + "/passes/"+ id_exp);
-    }
-
-    updatePasses(passes:any){
-        return this.http.post(this.url + '/passes/closed', passes);
-    }
-
-    createInternalPasses (newInternalPasse:any){
-        console.log("aca vamos con ");
-        console.log( newInternalPasse);
-
-        return this.http.post<any>(this.url + '/internalpasses/create/', newInternalPasse);
-    }
-
-    searchInternalPasses(id_passe:any){
-
-        return this.http.get(this.url + "/internalpasses/"+ id_passe);
-    }
-    editInternalPasses(passe:any){
-
-        return this.http.post(this.url + "/internalpasses/edit/", passe);
-    }
-    searchInternalPasse(id_passe:any){
-
-        return this.http.get(this.url + "/internalpasses/passe/"+ id_passe);
-    }
 }

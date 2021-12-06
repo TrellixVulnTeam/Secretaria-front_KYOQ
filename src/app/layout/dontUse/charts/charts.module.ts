@@ -11,3 +11,4 @@ import { ChartsComponent } from './charts.component';
     declarations: [ChartsComponent]
 })
 export class ChartsModule {}
+

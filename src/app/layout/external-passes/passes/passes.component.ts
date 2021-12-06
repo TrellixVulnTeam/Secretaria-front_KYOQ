@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from "../../../db.service";
+import { DataService } from "../../../data.service";
 import {formatDate} from '@angular/common';
+import { Router } from '@angular/router';
 
 //PDF
 import { PdfMakeWrapper, Img, Txt } from "pdfmake-wrapper";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 
+
 @Component({
-  selector: 'app-passes',
-  templateUrl: './passes.component.html',
-  styleUrls: ['./passes.component.css']
+    selector: 'app-passes',
+    templateUrl: './passes.component.html',
+    styleUrls: ['./passes.component.css']
 })
 export class PassesComponent implements OnInit {
 
-    page = "http://localhost:8000/api/files/";
 
-
-
-    id_exp : any;
+    file :any;
     passes : any;
+    offices:any;
+
     newPasse = {
         id:"",
         passe_id:"",
@@ -27,237 +29,241 @@ export class PassesComponent implements OnInit {
         from_date:"",
         to:"",
         to_date:"",
-        status:"",
+        status:true,
         response:"",
-        responsable:localStorage.getItem('name'),
+        responsable:localStorage.getItem('id'),
+        responsable_name: localStorage.getItem("name"),
     };
     today:Date;
-    totPage= [];
-    pagination: any;
-    currentPage = 0;
     groups:any;
-    fileSerch :any;
     closed: boolean;
-    offices:any;
+    editing:boolean;
+    ready_print:boolean;
 
     public alerts: Array<any> = [];
 
-    constructor(private DB: DbService) {
+    constructor(private DB: DbService, private DATA: DataService, private router: Router) {
 
-        this.today = new Date();
-        this.newPasse.from_date =  formatDate(this.today,  'yyyy-MM-dd', 'en-US');
-        this.newPasse.to_date =  formatDate(this.today,  'yyyy-MM-dd', 'en-US');
-        this.newPasse.file_id = localStorage.getItem('idEdit');
-        this.newPasse.status = "true";
         this.alerts= this.DB.alerts;
 
     }
 
     ngOnInit(): void {
 
-    this.closed = false;
-    this.id_exp = localStorage.getItem('idEdit');
+        this.today = new Date();
+        this.newPasse.from_date =  formatDate(this.today,  'yyyy-MM-dd hh:mm:ss' , 'en-US');
+        this.newPasse.to_date =  formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
 
-    this.currentPage = 1;
-    var i = 0;
+        this.file =  this.DATA.file[0];
+        this.newPasse.file_id = this.file.id;
 
-    this.DB.listOffices().subscribe({
-        next: data =>{
-            this.offices = data;
-        }
-    });
-
-    this.DB.listExp(this.page + this.id_exp).subscribe({
+        this.DB.External_passe_search(this.file.id).subscribe({
         next: data => {
-            this.fileSerch = data;
-         }});
+                this.passes = data;
 
+                if(!this.passes.data[0].status){
+                    this.closed=true;
+                    this.newPasse.to = this.passes.data[0].to;
+                }else{
+                    this.closed=false;
+                }
 
-         this.DB.searchPasses(this.id_exp).subscribe({
-       next: data => {
-            this.passes = data;
+                if(!this.passes.data[0].to){
+                   this.editing = true;
+                }else{
+                    this.editing=false;
+                }
 
-            if(this.passes.data[this.passes.data.length -1].status === "true"){ this.closed=true;}else{this.closed=false;}
-        }});
-
+            }});
+        this.DB.Offices_list().subscribe({
+            next: data=> {
+                this.offices = data;
+            }
+        })
     }
 
-    search(){
+      addPasse(){
 
-        this.totPage= [];
-        this.currentPage = 1;
-        this.fileSerch.page = 1;
+         this.newPasse.status = false;
+         this.closed = false;
+         this.DB.External_passe_create(this.newPasse).subscribe({
 
-        this.DB.search(this.fileSerch).subscribe(
-            data => {
-                this.fileSerch = data;
-                });
-    }
-
-     addPasse(){
-        var pase_id;
-        this.newPasse.status = "true";
-        this.DB.createPasses(this.newPasse).subscribe({
-
-            next: data => {
-                localStorage.setItem('idEdit', data);
-                this.newPasse.passe_id = data;
-
-                this.DB.createInternalPasses(this.newPasse).subscribe({
-
-                    next: data => {
-                                this.DB.alerts.push({
-                                    id: 1,
-                                    type: 'success',
-                                    message: "Pase intero creado"
-                                });
-                            },
-                    error: error => {
-                       this.DB.alerts.push({
-                            id: 1,
-                            type: 'success',
-                            message: error.message
-                        });
-                       }
-                    });
-
-
-
-
-                this.DB.alerts.push({
-                        id: 1,
-                        type: 'success',
-                        message: "Pase Ingresado"
-                    });
-                        this.DB.searchPasses(this.id_exp).subscribe({
-                            next: data => {
-                                this.passes = data;
-                                if(this.passes.data[this.passes.data.length -1].status === "true"){ this.closed=true;}else{this.closed=false;}
-                                this.ngOnInit();
-                        }});
-
-            },
-            error: error => {
-                console.log(error);
+             next: data => {
                 this.DB.alerts.push({
                     id: 1,
                     type: 'success',
+                    message: 'Pase Agregado'
+                    });
+
+
+                const new_internal_passe = {
+                    from: this.newPasse.responsable,
+                    from_date: this.newPasse.from_date,
+                    responsable: this.newPasse.responsable,
+                    status: this.newPasse.status,
+                    external_passe: data.id,
+                }
+                this.DB.internal_passe_create(new_internal_passe).subscribe({
+                    next: data=>{
+                        this.DB.alerts.push({
+                            id: 1,
+                            type: 'success',
+                            message: 'Pase interno agregado'
+                        });
+
+                        this.seePasse(data.external_passe);
+                        this.router.navigate(['/passe']);
+                    },
+                    error: error => {
+                        console.log(error);
+                        this.DB.alerts.push({
+                            id: 1,
+                            type: 'danger',
+                            message: error.message
+                        });
+                    }
+                })
+            },
+                error: error => {
+                    console.log(error);
+                    this.DB.alerts.push({
+                    id: 1,
+                    type: 'danger',
                     message: error.message
-                });
-               }
+                    });
+                }
             });
 
-    }
 
-    updatePasse(passe_id){
-        this.newPasse.id = passe_id;
-       this.newPasse.response = this.passes.data[this.passes.total -1].response;
+     }
 
-        if (this.newPasse.response == ""){
+     updatePasse(passe_id){
+
+        if(this.passes.data[passe_id].response == ""){
+             this.DB.alerts.push({
+                 id: 1,
+                 type: 'success',
+                 message:"Falta Completar respuesta"
+             });
+         }
+
+         else if (this.newPasse.to == ""){
+             this.DB.alerts.push({
+                 id: 1,
+                 type: 'success',
+                 message:"Falta completar destino"
+             });
+         }
+         else if (this.newPasse.to_date == ""){
+             this.DB.alerts.push({
+                 id: 1,
+                 type: 'success',
+                 message:"Falta completar fecha de cierre"
+             });
+         }
+          else{
+
+
+            this.newPasse.id = this.passes.data[passe_id].id;
+            this.newPasse.status = false;
+            this.closed = false;
+
+              this.DB.External_passe_update(this.newPasse).subscribe({
+                  next: data => {
+
+                        this.ngOnInit();
+                     },
+                      error: err =>{
+                          console.log(err);
+                      }
+                  });
+
+
+              }
+     }
+
+     public close_external_passe(passe_id){
+        console.log('si aca');
+
+        console.log(this.passes.data[passe_id].response);
+
+       if(this.passes.data[passe_id].response == null){
             this.DB.alerts.push({
                 id: 1,
-                type: 'success',
+                type: 'danger',
                 message:"Falta Completar respuesta"
             });
         }
 
-        else if (this.newPasse.to == ""){
+        else if (this.passes.data[passe_id].to == ""){
             this.DB.alerts.push({
                 id: 1,
-                type: 'success',
+                type: 'danger',
                 message:"Falta completar destino"
             });
         }
-        else if (this.newPasse.to_date == ""){
-            this.DB.alerts.push({
-                id: 1,
-                type: 'success',
-                message:"Falta completar fecha de cierre"
-            });
-        }
-         else{
-             this.newPasse.status = 'false';
-             this.DB.updatePasses(this.newPasse).subscribe({
-                 next: data => {
 
-                     this.newPasse = {
-                        id:"",
-                        passe_id:"",
-                        file_id:"",
-                        from: "",
-                        from_date:formatDate(this.today,  'yyyy-MM-dd', 'en-US'),
-                        to:"",
-                        to_date:formatDate(this.today,  'yyyy-MM-dd', 'en-US'),
-                        status:"",
-                        response:"",
-                        responsable:localStorage.getItem('name'),
-                    };
-                     var exp= {
-                         status: 0
-                     };
-                      this.DB.editExp(exp);
-                     this.ngOnInit();
+        else{
+
+
+           this.newPasse.id = this.passes.data[passe_id].id;
+           this.newPasse.status = true;
+           this.closed = true;
+
+
+             this.DB.File_close(this.passes.data[passe_id].file.id).subscribe({
+                 next: data => {
+                        this.DB.External_passe_close(this.passes.data[passe_id].id).subscribe({
+                            next: data => {
+                               this.ngOnInit();
+                            },
+                            error: err =>{
+                                console.log(err);
+                            }
+                        });
+
                     },
                      error: err =>{
                          console.log(err);
                      }
                  });
+
+
              }
 
-            console.log(this.newPasse);
-    }
+             this.newPasse.from = "";
+             this.newPasse.to = "";
+     }
 
+     editPasse(){
+         this.editing=true;
+     }
 
-     seePasse(passe_id){
-         localStorage.setItem("idPasse",passe_id);
-    }
+      public closeAlert(alert: any) {
+         const index: number = this.alerts.indexOf(alert);
+         this.alerts.splice(index, 1);
+     }
 
-     closePasse(passe_id){
-        localStorage.setItem("idPasse",passe_id);
-    }
+     seePasse(file_id){
+         this.DATA.External_passe_edit_id = file_id;
+     }
 
-     public closeAlert(alert: any) {
-        const index: number = this.alerts.indexOf(alert);
-        this.alerts.splice(index, 1);
-    }
+     public goToUrl(url:any){
 
+        this.DB.GoToUrl(url).subscribe({
+            next:
+                 data =>{
+                     this.passes = data;
+                     console.log(this.passes);
 
-   async PDFCreate(){
-
-       // Set the fonts to use
-       PdfMakeWrapper.setFonts(pdfFonts);
-
-       const pdf = new PdfMakeWrapper();
-
-
-       pdf.info({
-           title: 'Providencia',
-           author: 'Secretaría de Educación',
-           subject: 'subject of document',
-        });
-
-        pdf.pageSize('A4');
-        pdf.pageMargins([ 40, 60, 40, 60 ]);
-
-        // pdf.images({
-        //     picture1: await new Img('https://www.santafe.gov.ar/boletinoficial/escudo-2019.png').build(),
-        // });
-
-
-        pdf.add(new Txt('Epediente N°: ' + this.fileSerch.dependence_number + "-" + this.fileSerch.number + "-" + this.fileSerch.final_number).alignment('right').end);
-        pdf.add(new Txt('Ref.: ' + this.fileSerch.concept).alignment('right').end);
-        pdf.add(pdf.ln(6));
-        pdf.add(new Txt('"SANTA FE, "Cuna de la Constitución Nacional"                                        .' ).alignment('right').end);
-        pdf.add(pdf.ln(3));
-        pdf.add(new Txt(".                        " + this.passes.data[this.passes.data.length - 1].response).alignment('justify').end);
-
-
-
-        pdf.create().print();
-    }
-
-    public exportProvi(){
-        console.log();
+                    }});
 
     }
+
+    public exports(id){
+        console.log(id);
+
+        this.DB.External_passe_export(id);
+    }
+
 }

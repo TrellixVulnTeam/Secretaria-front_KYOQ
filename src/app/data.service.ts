@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { DbService} from './db.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-    File: any;
+    File_id: any;
+    file: any;
+    External_passe_edit_id:any;
+    Internal_passe_edit_id:any;
     Users: any;
     Agrupations:any;
     Oficces:any;
 
-  constructor( private DB : DbService ) { }
+  constructor() { }
 
   }

@@ -34,6 +34,7 @@ export class SidebarComponent implements OnInit {
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
+        this.toggleCollapsed();
     }
 
     eventCalled() {
