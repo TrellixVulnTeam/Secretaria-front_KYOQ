@@ -21,7 +21,7 @@
     <hr />
     <h2 class="text-muted"><small>Acciones</small> </h2>
     <div class="row justify-content-around">
-        <div class="col-xl-3 col-lg-6"[routerLink]="['/createExp']">
+        <div class="col-xl-3 col-lg-6"[routerLink]="['/createExp']" *ngIf = "permissions.SCE" >
             <app-stat [bgClass]="'primary'" [count]="" [icon]="'fa-comments'" [label]="'Ingreso Expedientes'"></app-stat>
         </div>
 
@@ -40,7 +40,7 @@
     <h2 class="text-muted"><small>Filtros</small> </h2>
     <div class="row"> -->
 
-        <div class="col-xl-3 col-lg-6" [routerLink]="['/listExp']">
+        <div class="col-xl-3 col-lg-6" [routerLink]="['/listExp']"*ngIf = "permissions.SCE">
             <app-stat [bgClass]="'warning'" [count]="total_file.active " [icon]="'fa-tasks'" [label]="'lista Expedientes'"></app-stat>
         </div>
 
@@ -50,8 +50,8 @@
     </div>
 
     <hr />
-    <h2 class="text-muted"><small>Plan Estratégico Anual Jurisdiccional</small> </h2>
-    <div class="row justify-content-around">
+    <h2 class="text-muted"*ngIf = "permissions.PEAJ"><small>Plan Estratégico Anual Jurisdiccional</small> </h2>
+    <div class="row justify-content-around" *ngIf = "permissions.PEAJ">
         <div class="col-xl-3 col-lg-6"[routerLink]="['/createExp']">
             <app-stat [bgClass]="'primary'" [count]="" [icon]="'fa-comments'" [label]="'Ingreso PEAJ'"></app-stat>
         </div>

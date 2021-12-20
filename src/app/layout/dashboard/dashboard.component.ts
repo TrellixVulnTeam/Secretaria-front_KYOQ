@@ -15,6 +15,11 @@ export class DashboardComponent implements OnInit {
 
     total_file : any;
     agrupations:any;
+    permissions ={
+        SCE:false,
+        PEAJ:false,
+    };
+
     constructor( private DB : DbService, private DATA : DataService) {
 
 
@@ -57,7 +62,13 @@ export class DashboardComponent implements OnInit {
                     }
 
                     ngOnInit() {
-                        this.DB.Agrupations_list().subscribe({
+
+                        if (localStorage.getItem('PEAJ') === "1") {this.permissions.PEAJ = true;}else{this.permissions.PEAJ = false;}
+                        if (localStorage.getItem('SCE') === "1") {this.permissions.SCE = true;}else{this.permissions.SCE = false;}
+                        console.log(this.permissions);
+
+
+                    this.DB.Agrupations_list().subscribe({
                             next: data =>{
                                 this.DATA.Agrupations = data;
                                 this.agrupations = this.DATA.Agrupations;
