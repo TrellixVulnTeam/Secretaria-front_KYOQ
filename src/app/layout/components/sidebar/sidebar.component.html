@@ -8,11 +8,14 @@
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Charts' | translate }}</span>
         </a>
-       <!-- <a [routerLinkActive]="['router-link-active']" [routerLink]="['/tables']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;
-            <span>{{ 'Tables' | translate }}</span>
+
+        <a [routerLinkActive]="['router-link-active']" href="https://www.santafe.gob.ar/isieme/" target="_blank" class="list-group-item">
+            <img   src="assets/images/isieme logo-S.png"
+            style="width: 20px; height: 20px;"/>&nbsp;
+            <span style="padding-left: 12px;">{{ 'ISIEME' | translate }}</span>
         </a>
-        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/forms']" class="list-group-item">
+
+        <!--<a [routerLinkActive]="['router-link-active']" [routerLink]="['/forms']" class="list-group-item">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
             <span>{{ 'Forms' | translate }}</span>
         </a>

@@ -175,7 +175,7 @@ export class ListExpComponent implements OnInit {
 ////////////////////paginations//////////////////////////////
 
     public goToUrl(url:any){
-console.log(this.fileSerch);
+
         const data = {
             search_site_id: this.fileSerch.search_site_id,
             search_status: this.fileSerch.search_status

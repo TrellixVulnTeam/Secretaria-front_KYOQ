@@ -19,6 +19,9 @@ const routes: Routes = [
             { path: 'passe', loadChildren: () => import('./internal-passe/passe/passe.module').then((m) => m.PasseModule) },
 
             { path: 'graphics', loadChildren: () => import('./graphics/graphics.module').then((m) => m.GraphicsModule) },
+            { path: 'dependencies', loadChildren: () => import('./dependecies/dependecies.module').then((m) => m.DependenciesModule) },
+
+            { path: 'peaj', loadChildren: () => import('./PEAJ/peaj/peaj.module').then((m) => m.PeajModule) },
 
             { path: 'forms', loadChildren: () => import('./dontUse/form/form.module').then((m) => m.FormModule) },
             { path: 'charts', loadChildren: () => import('./dontUse/charts/charts.module').then((m) => m.ChartsModule) },
@@ -26,7 +29,6 @@ const routes: Routes = [
 
             { path: 'bs-element', loadChildren: () => import('./dontUse/bs-element/bs-element.module').then((m) => m.BsElementModule)},
             { path: 'grid', loadChildren: () => import('./dontUse/grid/grid.module').then((m) => m.GridModule)},
-            { path: 'components', loadChildren: () => import('./dontUse/bs-component/bs-component.module').then((m) => m.BsComponentModule)},
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then((m) => m.BlankPageModule)}
         ]
     }

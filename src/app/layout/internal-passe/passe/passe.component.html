@@ -9,7 +9,8 @@
             Volver
         </button>
     </div>
-<div>
+
+<div> <!--inicio datos ep-->
 
 <!-- //////////////////////////////////ALERTS//////////////////////////// -->
     <p *ngFor="let alert of alerts"class="small">
@@ -20,17 +21,17 @@
 <!-- //////////////////////////////////TABLET//////////////////////////// -->
     <table class="table table-hover table-striped m-0">
         <thead class="">
-            <tr class="mx-auto row">
-                <th class="small pt-0 pb-0 px-2 col-xl-4 justify-content-center">Iniciador</th>
-                <th class="small pt-0 pb-0 px-3  col-xl-6">Referencia</th>
-                <th class="small pt-0 pb-0 pl-4 col-xl-2">Grupo</th>
+            <tr class="mx-auto">
+                <th style="width: 300px;" >Iniciador</th>
+                <th style="width: auto;" >Referencia</th>
+                <th style="width: 200px;" >Grupo</th>
             </tr>
         </thead>
-        <tbody class="row d-flex justify-content-between">
-
-                <td class="col-xl-4 ml-3">
+        <tbody>
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
                     <textarea type="text"
                         rows="2"
+                        style="font-size: small;"
                         class="form-control mr-1  p-0 text-center"
                         [(ngModel)]="file[0].initiator"
                         aria-label="Sizing example input"
@@ -38,28 +39,29 @@
                         disabled>
                     </textarea>
                 </td>
-                <td class="col-xl-5">
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
                     <textarea type="text"
                         class="form-control mr-1  p-0 text-center"
+                        style="font-size: small;"
                         [(ngModel)]="file[0].concept"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
                         disabled>
                     </textarea>
                 </td>
-
-                <td class="col-xl-2 mr-4">
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
                     <textarea type="text"
                     class="form-control mr-1 p-0 text-center"
+                    style="font-size: small;"
                     [(ngModel)]="file[0].agrupation.name"
                     aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-sm"
                     disabled>
                     </textarea>
                 </td>
-        </tbody>
-    </table>
-    </div>
+            </tbody>
+        </table>
+</div>
 
     <div class="card  small">
         <div class="card-header d-flex justify-content-between p-0">
@@ -67,9 +69,9 @@
                 <div class="ml-2" style="font-weight: 900;"> {{external_passe_from.id}} </div>
             </div>
         </div>
-    <div>
 
-    <div class="card-body table-responsive p-0">
+    <div>
+        <div class="card-body table-responsive p-0">
         <table class="table table-hover table-striped">
             <thead>
                 <tr class="mx-auto">

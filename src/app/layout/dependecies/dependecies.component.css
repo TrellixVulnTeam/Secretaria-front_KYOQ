@@ -1,0 +1,22 @@
+.titles{
+    padding: 0px;
+    padding-left: 20px;
+    font-size: small;
+    font-weight: normal;
+}
+
+.date{
+    padding: 0px;
+    font-size: small;
+    font-weight: normal;
+}
+
+.rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+

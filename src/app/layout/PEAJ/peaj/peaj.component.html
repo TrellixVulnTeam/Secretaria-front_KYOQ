@@ -1,0 +1,251 @@
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">Lista de Expedientes en Secretaría de Educación
+        <button
+            type="button"
+            class="btn btn-m btn-danger"
+            [routerLink]="['/dashboard']">
+            Volver
+        </button>
+    </div>
+
+    <!-- search -->
+    <div>
+      <table class="table table-hover table-striped m-0">
+        <thead>
+            <tr class="mx-auto">
+                <th class="small pt-0 pb-0 px-2" style="width: 185px;">Numero</th>
+                <th class="small pt-0 pb-0 px-2" style="width: 250px;">Iniciador</th>
+                <th class="small pt-0 pb-0 px-2">Referencia</th>
+                <th class="small pt-0 pb-0 px-2" style="width: 200px;">Grupo</th>
+                <th class="small pt-0 pb-0 px-2" style="width: 170px;">en Posesion</th>
+                <th class="small pt-0 pb-0 px-2" style="width: 60px;">In situ</th>
+                <th class="small pt-0 pb-0 px-2" style="width: 80px;"></th>
+
+            </tr>
+        </thead>
+        <!-- <tbody>
+                <td>
+                    <div style="display: flex;">
+                        <input #N1
+                            type="text"
+                            style="font-size: small;"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "5"
+                            [(ngModel)]="fileSerch.search_dependence_number"
+                            (ngModelChange) = "changeFocus(1)"
+                            class="form-control mr-0 p-0 text-center "
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            style="height: 22px; width: 50px;">
+
+                        <div class="col-xl-1 text-center p-0 h-25 ">-</div>
+                        <input #N2
+                            type="text"
+                            style="font-size: small;"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "7"
+                            [(ngModel)]="fileSerch.search_central_number"
+                            (ngModelChange) = "changeFocus(2)"
+                            class="form-control mr-1 p-0 text-center "
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            style="height: 22px; ">
+
+                        <div class="col-1 text-center p-0 h-25 ">-</div>
+                        <input #N3
+                            type="text"
+                            style="font-size: small;"
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxlength = "1"
+                            [(ngModel)]="fileSerch.search_final_number"
+                            (ngModelChange) = "changeFocus(3)"
+                            class="form-control mr-1 p-0 text-center"
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm"
+                            style="height: 22px; width: 15px;">
+                    </div>
+                </td>
+                <td>
+                    <input type="text"
+                    style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="fileSerch.search_initiator"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+                <td style="width: auto;">
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="fileSerch.search_concept"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                    </td>
+
+                <td>
+                    <select class="form-control mr-1 p-0 text-center h-25"
+                    style="font-size: small;"
+                    [(ngModel)]="fileSerch.search_agrupation_id"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                        <option> </option>
+                        <option *ngFor="let Agrupation of agrupations" [value]="Agrupation.id">
+                            {{Agrupation.name}}
+                          </option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control mr-1 p-0 text-center h-25"
+                    style="font-size: small;"
+                    [(ngModel)]="fileSerch.search_site_id"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                        <option> </option>
+                        <option *ngFor="let User of users" [value]="User.id">
+                            {{User.name}}
+                          </option>
+                    </select>
+                </td>
+                <td style="display: flex; justify-content: center;">
+                    <input type="checkbox"  [(ngModel)]="fileSerch.search_status"  >
+                </td>
+
+                <td>
+                    <button #BSearch
+                        class="btn btn-outline-info small pt-0 pb-0 px-2"
+                        type="button"
+                        (click)="search()"
+
+                        [routerLink]="" >
+                        buscar
+                    </button>
+                </td>
+        </tbody> -->
+      </table>
+    </div>
+    <!-- end search -->
+
+    <p *ngFor="let alert of alerts" class="small">
+        <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
+    </p>
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr class="mx-auto">
+                    <th class="small pt-0 pb-0 px-2" style="width: 20px;">Eje</th>
+                    <th class="small pt-0 pb-0 px-2" style="width: 130px;">Sub Eje</th>
+                    <th class="small pt-0 pb-0 px-2" style="width: 200px;">Linea</th>
+                    <th class="small pt-0 pb-0 px-2">Area responsable</th>
+                    <th class="small pt-0 pb-0 px-2"style="width: 130px;">Programa Presupuestario</th>
+                    <th class="small pt-0 pb-0 px-2" style="width: 100px;">Rubro a Financiar</th>
+                    <th class="small pt-0 pb-0 px-2" style="width: 60px;">Meta</th>
+                    <th class="small pt-0 pb-0 px-2" style="width:45px;">
+                        <button
+                        class="btn btn-outline-primary small pt-0 pb-0 px-2 m-1"
+                        type="button"
+                        style="width: 95%;"
+                        [routerLink]="['/createExp']" >
+                        Agregar
+                        </button>
+                     </th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let file of files.data; let i = index " >
+                <tr     >
+                        <td class="small pt-0 pb-0 px-2" > {{files.from + i}} </td>
+                        <td class="small pt-0 pb-0 px-2" > {{file.dependence_number}}-{{file.central_number}}-{{file.final_number}} </td>
+                        <td class="small pt-0 pb-0 px-2" > {{file.initiator}} </td>
+                        <td class="small pt-0 pb-0 px-2"> {{file.concept}} </td>
+                       <td *ngIf="editing == file.id; else elseBlock">
+                            <select class="form-control mr-1 p-0 text-center h-25 small"
+                            [(ngModel)]="fileSerch.search_agrupation_id"
+                                aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm">
+                                <option class="small" *ngFor="let agrupation of agrupations" [value]="agrupation.id">
+                                    {{agrupation.name}}
+                                  </option>
+                            </select>
+                        </td>
+
+                        <ng-template #elseBlock>
+                            <td class="small pt-0 pb-0 px-2 ">
+                                {{file.agrupation.name}}
+                            </td>
+                        </ng-template>
+                        <td class="small pt-0 pb-0 px-2" *ngIf = "file.status; else elseClose" >{{file.site.name}}</td>
+                        <ng-template #elseClose>
+                            <td class="small pt-0 pb-0 px-2" >{{'CERRADO'}}</td>
+                        </ng-template>
+                        <td >
+                            <div style="display: flex; justify-content: center;"  >
+                                <input type="checkbox"  [(ngModel)]="file.status" disabled  >
+                            </div>
+                        </td>
+
+                        <td class="d-flex justify-content-center">
+                            <button
+                            class="btn btn-outline-primary small pt-0 pb-0 px-2 "
+                            type="button"
+                            (click)="edit_file(file.id)"
+                            *ngIf="editing != file.id; else elseBlockButton">
+                            Edit
+                        </button>
+                        <ng-template #elseBlockButton>
+                            <button
+                        class="btn btn-outline-primary small pt-0 pb-0 px-2 "
+                        type="button"
+                        (click)="save_file(file.id)">
+                        Guardar
+                      </button>
+                    </ng-template>
+
+                        <button
+                        class="btn btn-outline-success small pt-0 pb-0 px-2 ml-2"
+                        type="button"
+                        (click)="see_passe(file.id)"
+                        [routerLink]="['/passes']"
+                        *ngIf="editing != file.id; else elseBlockButtonCancel">
+                        Ver
+                        </button>
+                        <ng-template #elseBlockButtonCancel>
+                            <button
+                        class="btn btn-outline-danger small pt-0 pb-0 px-2 "
+                        type="button"
+                        (click)="cancel_update()">
+                        cancelar
+                      </button>
+                    </ng-template>
+                    </td>
+                </tr>
+            </tbody> -->
+        </table>
+
+<!-- pagination -->
+<nav aria-label="Page navigation example" class="d-flex justify-content-center ">
+    <ul class="pagination" *ngFor = " let item of files.links; let i = index">
+
+        <div *ngIf="item.active; else noActive">
+            <li class="page-item active"  >
+                <a class="page-link p-0 pl-1 pr-1 active" style="margin: 1px;" [innerHTML]= item.label></a>
+            </li>
+        </div>
+        <ng-template #noActive >
+
+
+            <ng-container *ngIf="(files.current_page === files.last_page && i == files.last_page +1) || (files.current_page === 1 && i ==0)    ; else elseTemplate">
+                <li class="page-item disabled">
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;" [innerHTML]= item.label></p>
+                </li>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <li class="page-item"  >
+                    <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;"  (click)="goToUrl(item.url)" [innerHTML]= item.label></p>
+                </li>
+            </ng-template>
+
+        </ng-template>
+    </ul>
+</nav>
+<!-- pagination end -->
+</div>
+

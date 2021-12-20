@@ -17,44 +17,46 @@
         </div>
     <div>
         <table class="table table-hover table-striped m-0">
-            <thead class="">
-                <tr class="mx-auto row">
-                    <th class="small pt-0 pb-0 px-2 col-xl-4 justify-content-center">Iniciador</th>
-                    <th class="small pt-0 pb-0 px-3  col-xl-6">Referencia</th>
-                    <th class="small pt-0 pb-0 pl-4 col-xl-2">Grupo</th>
+            <thead>
+                <tr class="mx-auto">
+                    <th style="width: 300px;">Iniciador</th>
+                    <th style="width: auto;" >Referencia</th>
+                    <th style="width: 200px;">Grupo</th>
                 </tr>
             </thead>
-            <tbody class="row d-flex justify-content-between">
+            <tbody>
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
+                    <textarea type="text"
+                        rows="2"
+                        style="font-size: small;"
+                        class="form-control mr-1  p-0 text-center"
+                        [(ngModel)]="file.initiator"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        disabled>
+                    </textarea>
+                </td>
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
+                    <textarea type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1  p-0 text-center"
+                        [(ngModel)]="file.concept"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        disabled>
+                    </textarea>
+                </td>
 
-                    <td class="col-xl-4 ml-3">
-                        <textarea type="text"
-                            rows="2"
-                            class="form-control mr-1  p-0 text-center"
-                            [(ngModel)]="file.initiator"
-                            aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm"
-                            disabled>
-                        </textarea>
-                    </td>
-                    <td class="col-xl-5">
-                        <textarea type="text"
-                            class="form-control mr-1  p-0 text-center"
-                            [(ngModel)]="file.concept"
-                            aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm"
-                            disabled>
-                        </textarea>
-                    </td>
-
-                    <td class="col-xl-2 mr-4">
-                        <textarea type="text"
+                <td style="padding: 4px; padding-top: 8px; padding-bottom: 8px;">
+                    <textarea type="text"
+                    style="font-size: small;"
                         class="form-control mr-1 p-0 text-center"
                         [(ngModel)]="file.agrupation.name"
                         aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-sm"
                         disabled>
-                        </textarea>
-                    </td>
+                    </textarea>
+                </td>
             </tbody>
         </table>
     </div>
@@ -73,7 +75,7 @@
                         <th style="width: 200px;" class="small pt-0 pb-0 px-2 ">Desde</th>
                         <th style="width:100px;" class="small pt-0 pb-0 px-2">Fecha Ingreso</th>
                         <th class="small pt-0 pb-0 px-2">Respuesta</th>
-                        <th style="width:200px;" class="small pt-0 pb-0 px-2">En Posesión de</th>
+                        <th style="width:100px;" class="small pt-0 pb-0 px-2">En Posesión de</th>
                         <th style="width:200px;" class="small pt-0 pb-0 px-2">Destino</th>
                         <th style="width: 100px;" class="small pt-0 pb-0 px-2">Fecha Salida</th>
                         <th style="width: 115px;" class="small pt-0 pb-0 px-2"></th>
@@ -126,7 +128,7 @@
                         <td class="small pt-0 pb-0 px-2" > {{passes.from + i}} </td>
                         <td class="small pt-0 pb-0 px-2" >  {{passe.from__office.name}} </td>
                         <td class="small pt-0 pb-0 px-2" > {{passe.from_date}}</td>
-                        <td class="small pt-0 pb-0 px-2" > {{passe.response}} </td>
+                        <td class="small pt-0 pb-0 px-2" > <textarea rows="2" style="width: 100%; height: 100%;" disabled>{{passe.response}}</textarea>  </td>
 
                         <td class="small pt-0 pb-0 px-2"> {{passe.user.name}} </td>
                         <td class="small pt-0 pb-0 px-2 "

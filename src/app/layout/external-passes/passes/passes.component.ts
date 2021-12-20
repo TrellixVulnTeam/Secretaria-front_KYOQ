@@ -39,6 +39,7 @@ export class PassesComponent implements OnInit {
     closed: boolean;
     editing:boolean;
     ready_print:boolean;
+    aux:any;
 
     public alerts: Array<any> = [];
 
@@ -51,8 +52,8 @@ export class PassesComponent implements OnInit {
     ngOnInit(): void {
 
         this.today = new Date();
-        this.newPasse.from_date =  formatDate(this.today,  'yyyy-MM-dd hh:mm:ss' , 'en-US');
-        this.newPasse.to_date =  formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
+        this.newPasse.from_date =  formatDate(this.today,  'yyyy-MM-dd HH:mm:ss' , 'en-US');
+        this.newPasse.to_date =  formatDate(this.today,  'yyyy-MM-dd HH:mm:ss', 'en-US');
 
         this.file =  this.DATA.file[0];
         this.newPasse.file_id = this.file.id;
@@ -77,7 +78,8 @@ export class PassesComponent implements OnInit {
             }});
         this.DB.Offices_list().subscribe({
             next: data=> {
-                this.offices = data;
+                 this.aux = data
+                this.offices = this.aux.data;
             }
         })
     }

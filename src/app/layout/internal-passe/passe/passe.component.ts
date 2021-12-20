@@ -39,6 +39,7 @@ export class PasseComponent implements OnInit {
     fileClose:boolean;
     users:any;
     today: Date;
+    aux:any
 
     public alerts: Array<any> = [];
 
@@ -55,7 +56,7 @@ export class PasseComponent implements OnInit {
     this.newInternalPasse.file_id = this.file[0].id;
     this.fileClose = this.file[0].status;
     this.external_passe_id = this.DATA.External_passe_edit_id;
-    console.log(this.fileClose);
+
 
 
 
@@ -64,12 +65,14 @@ export class PasseComponent implements OnInit {
             this.internal_passes = data;
             this.external_passe =this.internal_passes.data[0].external_passe;
             this.newInternalPasse.response = this.internal_passes.data[0].response;
+
         }
     });
 
     this.DB.Offices_list().subscribe({
         next: data => {
-            this.offices = data;
+            this.aux = data;
+            this.offices = this.aux.data;
 
             this.external_passe_from = this.offices.filter(x => x.id == this.external_passe.from);
 
@@ -83,19 +86,19 @@ export class PasseComponent implements OnInit {
     })
 
     this.today = new Date();
-    this.newInternalPasse.to_date =  formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
+
+    this.newInternalPasse.to_date =  formatDate(this.today,  'dd-MM-yyyy HH:mm:ss', 'es-AR');
     this.currentPage = 1;
-
-
     }
 
     public internal_passe_create(){
 
         this.newInternalPasse.from = Number(localStorage.getItem("id"));
         this.newInternalPasse.external_passe = this.external_passe_id;
-        this.newInternalPasse.from_date = formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
+        this.newInternalPasse.from_date = formatDate(this.today,  'dd-MM-yyy HH:mm:ss', 'es-AR');
         this.newInternalPasse.status = "0";
         this.newInternalPasse.to_date = null;
+        console.log(this.newInternalPasse);
 
         this.DB.internal_passe_create(this.newInternalPasse).subscribe({
             next: data=>{
@@ -110,7 +113,7 @@ export class PasseComponent implements OnInit {
 
         this.newInternalPasse.responsable = localStorage.getItem("id");
         this.newInternalPasse.status = "1";
-        this.newInternalPasse.to_date = formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
+        this.newInternalPasse.to_date = formatDate(this.today,  'yyyy-MM-dd HH:mm:ss', 'en-US');
         this.newInternalPasse.external_passe = this.external_passe_id;
         this.newInternalPasse.id = id;
 
@@ -118,7 +121,7 @@ export class PasseComponent implements OnInit {
             next: data=>{
 
                 this.newInternalPasse.from = this.newInternalPasse.to;
-                this.newInternalPasse.from_date = formatDate(this.today,  'yyyy-MM-dd hh:mm:ss', 'en-US');
+                this.newInternalPasse.from_date = formatDate(this.today,  'yyyy-MM-dd HH:mm:ss', 'en-US');
                 this.newInternalPasse.status = "0";
                 this.newInternalPasse.to = null;
                 this.newInternalPasse.to_date = null;

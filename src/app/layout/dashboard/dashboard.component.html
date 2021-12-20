@@ -25,16 +25,9 @@
             <app-stat [bgClass]="'primary'" [count]="" [icon]="'fa-comments'" [label]="'Ingreso Expedientes'"></app-stat>
         </div>
 
-        <!-- <div class="col-xl-3 col-lg-6">
-            <app-stat
-                [bgClass]="'success'"
-                [count]=""
-                [icon]="'fa-shopping-cart'"
-                [label]="'Salida Expedientes'"
-            ></app-stat>
-        </div>
 
-        <div class="col-xl-3 col-lg-6">
+
+      <!--  <div class="col-xl-3 col-lg-6">
             <app-stat [bgClass]="'warning'" [count]="" [icon]="'fa-tasks'" [label]="'Editar Expediente'"></app-stat>
         </div>
 
@@ -51,8 +44,20 @@
             <app-stat [bgClass]="'warning'" [count]="total_file.active " [icon]="'fa-tasks'" [label]="'lista Expedientes'"></app-stat>
         </div>
 
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'danger'"  [icon]="'fa-support'" [label]="'Ver Pases'"></app-stat>
+        <div class="col-xl-3 col-lg-6" [routerLink]="['/dependencies']">
+            <app-stat [bgClass]="'danger'"  [icon]="'fa-support'" [label]="'Lista Dependecias'"></app-stat>
         </div>
     </div>
+
+    <hr />
+    <h2 class="text-muted"><small>Plan Estratégico Anual Jurisdiccional</small> </h2>
+    <div class="row justify-content-around">
+        <div class="col-xl-3 col-lg-6"[routerLink]="['/createExp']">
+            <app-stat [bgClass]="'primary'" [count]="" [icon]="'fa-comments'" [label]="'Ingreso PEAJ'"></app-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'success'" [count]="" [icon]="'fa-shopping-cart'" [label]="'PEAJ'"></app-stat>
+        </div>
+    </div>
+
 </div>

@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class DbService {
 
     public alerts: Array<any> = [];
-    url = "http://localhost:8000/api"
+    url = "http://10.4.15.80:8000/api"
     users : any;
 
 
@@ -136,6 +136,10 @@ internal_passe_update(internal_passe){
 
 Offices_list(){
     return this.http.get(this.url + "/offices");
+}
+
+Offices_search(data){
+    return this.http.post(this.url + "/offices/search", data);
 }
 
 Agrupations_list(){

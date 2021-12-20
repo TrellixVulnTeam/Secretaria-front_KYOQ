@@ -1,0 +1,152 @@
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">Lista de Dependecias del Ministerio de Educación
+        <button
+            type="button"
+            class="btn btn-m btn-danger"
+            [routerLink]="['/dashboard']">
+            Volver
+        </button>
+    </div>
+
+    <!-- search -->
+    <div>
+      <table class="table table-hover table-striped m-0">
+        <thead>
+            <tr class="mx-auto">
+                <th style="width: 350px; " class="titles">Nombre</th>
+                <th style="width: 150px;" class="titles">Internos</th>
+                <th style="width: 140px;" class="titles">Codigo SIE</th>
+                <th style="width: 200px;" class="titles" >Funcionario a Cargo </th>
+                <th style="width: 200px;" class="titles" >Ordenar por</th>
+                <th style="width: 40px;" class="titles"  ></th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="Offcie_search.name"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+                <td style="width: auto;">
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="Offcie_search.internal"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+
+                <td>
+                    <input type="text"
+                    style="font-size: small;"
+                    class="form-control mr-1 p-0 text-center h-25"
+                    [(ngModel)]="Offcie_search.SIE"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm">
+                </td>
+
+                <td>
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="Offcie_search.officer_in_charge"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+                <td style="display: flex;">
+                    <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        style="font-size: small;"
+                        [(ngModel)]="Offcie_search.order_by">
+
+                        <option value="name"> Nombre </option>
+                        <option value="internal_phone" > Internos </option>
+                        <option value=" code_sie"> Codigo SIE </option>
+                        <option value="officer_in_charge"> Funcionario a Cargo</option>
+                    </select>
+
+                        <img
+                            id="arrow"
+                            src="assets/images/flecha.png"
+                            style="width: 19px; height: 19px;"
+                            class="rotate180"
+                            (click)= invert_order()
+                            />
+
+                </td>
+
+                <td style="padding: 8px;">
+                    <button #BSearch
+                        class="btn btn-outline-info small pt-0 pb-0 px-2"
+                        type="button"
+                        (click)="search_office()">
+                        buscar
+                    </button>
+                </td>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- end search -->
+
+
+    <div>
+        <table class="table table-hover table-striped m-0">
+          <thead>
+              <tr class="mx-auto" style="text-align: center;">
+                  <th style="width: 10px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">N°</th>
+                  <th style="width: 300px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">Nombre</th>
+                  <th style="width: 100px; padding: 2px; font-weight: bolder;  background-color:rgb(237, 237, 237);" class="titles">Internos</th>
+                  <th style="width: 105px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">Codigo SIE</th>
+                  <th class="titles" style="padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);"> Email</th>
+                  <th class="titles" style="padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" >Email Alternativo</th>
+                  <th style="width: 200px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles" >Funcionario a Cargo</th>
+
+              </tr>
+          </thead>
+          <tbody  *ngFor="let office of offices.data; let i = index ">
+                  <td class="date" style="text-align: center;" > {{i+1}} </td>
+                  <td class="date" style="background-color:rgb(237, 237, 237);"> {{office.name}} </td>
+                  <td class="date" style="text-align: center;"> {{office.internal_phone}}</td>
+                  <td class="date" style="text-align: center; background-color:rgb(237, 237, 237);"> {{office.code_sie}} </td>
+                  <td class="date" style="text-align: center;"> {{office.email}} </td>
+                  <td class="date" style=" text-align: center; background-color:rgb(237, 237, 237);"> {{office.alternative_email}}</td>
+                  <td class="date" style="text-align: center;"> {{office.officer_in_charge}}</td>
+            </tbody>
+        </table>
+      </div>
+
+    </div>
+      <!-- pagination -->
+<div class="">
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center ">
+        <ul class="pagination" *ngFor = " let item of offices.links; let i = index">
+
+            <div *ngIf="item.active; else noActive">
+                <li class="page-item active"  >
+                    <a class="page-link p-0 pl-1 pr-1 active" style="margin: 1px;" [innerHTML]= item.label></a>
+                </li>
+            </div>
+            <ng-template #noActive >
+
+
+                <ng-container *ngIf="(offices.current_page === offices.last_page && i == offices.last_page +1) || (offices.current_page === 1 && i ==0)    ; else elseTemplate">
+                    <li class="page-item disabled">
+                        <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;" [innerHTML]= item.label></p>
+                    </li>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <li class="page-item"  >
+                        <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;"  (click)="goToUrl(item.url)" [innerHTML]= item.label></p>
+                    </li>
+                </ng-template>
+
+            </ng-template>
+        </ul>
+    </nav>
+</div>
+<!-- pagination end -->

@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class GraphicsService {
     public alerts: Array<any> = [];
-    url = "http://localhost:8000/api/graphics"
+    url = "http://10.4.15.80:8000/api/graphics"
     users : any;
 
     constructor(private http: HttpClient) { }
