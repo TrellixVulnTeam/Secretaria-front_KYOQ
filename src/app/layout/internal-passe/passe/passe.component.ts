@@ -28,6 +28,7 @@ export class PasseComponent implements OnInit {
     pagination: any;
     currentPage = 0;
     groups:any;
+    provis:any;
 
     offices:any;
     passeSearch:any;
@@ -50,6 +51,14 @@ export class PasseComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    this.DB.Provis_list().subscribe({
+        next: data=>{
+            this.provis = data;
+            console.log(data);
+
+        }
+    })
 
     this.file =this.DATA.file;
 
@@ -137,6 +146,10 @@ export class PasseComponent implements OnInit {
                 this.ngOnInit();
             }
         });
+    }
+
+    public open_provis_models(){
+
     }
 
     public goToUrl(url:any){

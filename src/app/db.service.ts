@@ -138,6 +138,10 @@ Offices_list(){
     return this.http.get(this.url + "/offices");
 }
 
+Provis_list(){
+    return this.http.get(this.url + "/provis");
+}
+
 Offices_search(data){
     return this.http.post(this.url + "/offices/search", data);
 }

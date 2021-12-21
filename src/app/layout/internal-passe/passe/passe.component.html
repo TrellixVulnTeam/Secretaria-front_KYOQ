@@ -114,7 +114,14 @@
 
                 <td class="small pt-0 pb-0 px-1 b-0" *ngIf="item.status; else ElseToDate"> {{item.to_date}} </td>
                 <ng-template #ElseToDate>
-                    <td width="150"class="small pt-1 pb-0 px-1 b-0 ">{{" "}}</td>
+                    <td width="150"class="small pt-1 pb-0 px-1 b-0 " >
+                        <button
+                        style="font-size: small;"
+                        class="btn btn-outline-info pt-0 pb-0 px-2  ml-1  "
+                        type="button">
+                                Modelos
+                        </button>
+                    </td>
                     </ng-template>
 
                     <td class="small pt-0 pb-0 px-1 b-0" *ngIf="item.status || !fileClose; else ElseResponsable">
