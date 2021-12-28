@@ -6,10 +6,11 @@ import {FormsModule} from '@angular/forms';
 
 import { PasseRoutingModule } from './passe-routing.module';
 import { PasseComponent } from './passe.component';
+import { ModalPovis } from './modal-provis.component';
 
 
 @NgModule({
     imports: [CommonModule, PasseRoutingModule, PageHeaderModule, NgbModule, FormsModule],
-    declarations: [PasseComponent]
+    declarations: [PasseComponent,ModalPovis]
 })
 export class PasseModule {}

@@ -4,6 +4,9 @@ import { DataService } from '../../../data.service';
 import { Router } from '@angular/router';
 import {formatDate} from '@angular/common';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+
 @Component({
   selector: 'app-passe',
   templateUrl: './passe.component.html',
@@ -24,6 +27,13 @@ export class PasseComponent implements OnInit {
     file_id:0
     }
 
+    searchModalProvi={
+        id:"",
+        name:"",
+        text:"",
+        office_id:""
+    }
+
     totPage= [];
     pagination: any;
     currentPage = 0;
@@ -40,11 +50,12 @@ export class PasseComponent implements OnInit {
     fileClose:boolean;
     users:any;
     today: Date;
-    aux:any
+    aux:any;
+    closeResult = '';
 
     public alerts: Array<any> = [];
 
-    constructor(private DB: DbService, private router:Router, private DATA: DataService ) {
+    constructor(private DB: DbService, private router:Router, private DATA: DataService, private modalService: NgbModal ) {
 
         this.alerts= this.DB.alerts;
 
@@ -52,7 +63,7 @@ export class PasseComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.DB.Provis_list().subscribe({
+    this.DB.Provis_list(this.searchModalProvi).subscribe({
         next: data=>{
             this.provis = data;
             console.log(data);
@@ -169,5 +180,58 @@ export class PasseComponent implements OnInit {
         this.alerts.splice(index, 1);
     }
 
+//////////////////MODAL/////////////////////
+    open(content) {
 
+        this.aux = this.newInternalPasse.response;
+
+        this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+          this.newInternalPasse.response = result;
+
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      }
+
+
+      private getDismissReason(reason: any): string {
+
+        this.newInternalPasse.response = this.aux;
+
+        if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+        } else {
+          return `with: ${reason}`;
+        }
+      }
+
+      public goToUrlModal(url:any){
+
+        const data = {
+            name: this.searchModalProvi.name,
+            office_id:this.searchModalProvi.office_id
+        }
+        this.DB.GoToUrlFile(url, data).subscribe({
+            next:
+                 data =>{
+                     this.provis = data;
+                     console.log(this.provis);
+
+                    }});
+
+        }
+
+        public searchModal(){
+
+            this.DB.Provis_list(this.searchModalProvi).subscribe({
+                next: data=>{
+                    this.provis = data;
+                    console.log(data);
+
+                }
+            })
+        }
 }

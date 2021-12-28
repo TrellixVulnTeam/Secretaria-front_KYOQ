@@ -125,17 +125,17 @@
                         </td>
                     </tr>
                     <tr *ngFor="let passe of passes.data; let i = index ">
-                        <td class="small pt-0 pb-0 px-2" > {{passes.from + i}} </td>
-                        <td class="small pt-0 pb-0 px-2" >  {{passe.from__office.name}} </td>
-                        <td class="small pt-0 pb-0 px-2" > {{passe.from_date}}</td>
-                        <td class="small pt-0 pb-0 px-2" > <textarea rows="2" style="width: 100%; height: 100%;" disabled>{{passe.response}}</textarea>  </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)"> {{passes.from + i}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)">  {{passe.from__office.name}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)"> {{passe.from_date}}</td>
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)"> <textarea rows="2" style="width: 100%; height: 100%;" disabled>{{passe.response}}</textarea>  </td>
 
-                        <td class="small pt-0 pb-0 px-2"> {{passe.user.name}} </td>
-                        <td class="small pt-0 pb-0 px-2 "
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)"> {{passe.user.name}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="seePasse(passe.id)"
 
-                        *ngIf="passe.status; else elseTo"> {{passe.to__office.name}} </td>
+                        *ngIf="passe.status; else elseTo" > {{passe.to__office.name}} </td>
                         <ng-template #elseTo >
-                            <td class="small pt-1 pb-0 px-2 " *ngIf="!editing ; else elseComplete">
+                            <td class="small pt-1 pb-0 px-2 " *ngIf="!editing ; else elseComplete" (click)="seePasse(passe.id)">
                                 {{passe.to__office.name}}
                             </td>
 
@@ -196,8 +196,7 @@
                                     style="font-size: small;"
                                     class="btn btn-outline-primary pt-0 pb-0 px-2  mt-1 small"
                                     type="button"
-                                    (click)="seePasse(passe.id)"
-                                    [routerLink]="['/passe']" >
+                                    (click)="seePasse(passe.id)">
                                         ver
                                 </button>
                                     <button *ngIf="!passe.status && passe.to && passe.response "

@@ -151,12 +151,12 @@
                 </tr>
             </thead>
             <tbody *ngFor="let file of files.data; let i = index " >
-                <tr     >
-                        <td class="small pt-0 pb-0 px-2" > {{files.from + i}} </td>
-                        <td class="small pt-0 pb-0 px-2" > {{file.dependence_number}}-{{file.central_number}}-{{file.final_number}} </td>
-                        <td class="small pt-0 pb-0 px-2" > {{file.initiator}} </td>
-                        <td class="small pt-0 pb-0 px-2"> {{file.concept}} </td>
-                       <td *ngIf="editing == file.id; else elseBlock">
+                <tr >
+                        <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)"  > {{files.from + i}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)" > {{file.dependence_number}}-{{file.central_number}}-{{file.final_number}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)" > {{file.initiator}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)"> {{file.concept}} </td>
+                       <td *ngIf="editing == file.id; else elseBlock" >
                             <select class="form-control mr-1 p-0 text-center h-25 small"
                             [(ngModel)]="fileSerch.search_agrupation_id"
                                 aria-label="Sizing example input"
@@ -168,15 +168,15 @@
                         </td>
 
                         <ng-template #elseBlock>
-                            <td class="small pt-0 pb-0 px-2 ">
+                            <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)">
                                 {{file.agrupation.name}}
                             </td>
                         </ng-template>
-                        <td class="small pt-0 pb-0 px-2" *ngIf = "file.status; else elseClose" >{{file.site.name}}</td>
+                        <td class="small pt-0 pb-0 px-2" *ngIf = "file.status; else elseClose" (click)="see_passe(file.id)">{{file.site.name}}</td>
                         <ng-template #elseClose>
-                            <td class="small pt-0 pb-0 px-2" >{{'CERRADO'}}</td>
+                            <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)">{{'CERRADO'}}</td>
                         </ng-template>
-                        <td >
+                        <td (click)="see_passe(file.id)" >
                             <div style="display: flex; justify-content: center;"  >
                                 <input type="checkbox"  [(ngModel)]="file.status" disabled  >
                             </div>
@@ -203,7 +203,6 @@
                         class="btn btn-outline-success small pt-0 pb-0 px-2 ml-2"
                         type="button"
                         (click)="see_passe(file.id)"
-                        [routerLink]="['/passes']"
                         *ngIf="editing != file.id; else elseBlockButtonCancel">
                         Ver
                         </button>

@@ -248,6 +248,8 @@ export class PassesComponent implements OnInit {
 
      seePasse(file_id){
          this.DATA.External_passe_edit_id = file_id;
+         this.router.navigate(['/passe']);
+
      }
 
      public goToUrl(url:any){

@@ -169,7 +169,9 @@ export class ListExpComponent implements OnInit {
 
 ////////////////////see_passe////////////////////////////////
     public see_passe(id_file){
-        this.DATA.file = this.files.data.filter(x => x.id == id_file)
+        this.DATA.file = this.files.data.filter(x => x.id == id_file);
+        this.router.navigate(['/passes']);
+
     }
 
 ////////////////////paginations//////////////////////////////

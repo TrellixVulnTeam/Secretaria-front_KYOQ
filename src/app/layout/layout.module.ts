@@ -9,13 +9,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { ModalProvisComponent } from './internal-passe/modal-provis/modal-provis.component';
+import { ProfileComponent } from './control-user/profile/profile.component';
+
 
 
 
 
 @NgModule({
     imports: [CommonModule, LayoutRoutingModule, TranslateModule, NgbDropdownModule,FormsModule],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, ModalProvisComponent]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, ProfileComponent]
 })
 export class LayoutModule {}
