@@ -1,1 +1,134 @@
-<p>profile works!</p>
+<div [@routerTransition] class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <!-- <img class="user-avatar" src="assets/images/logo ministerio.jpeg" width="150px" /> -->
+            <h1>Perfil Del Usuario</h1>
+            <form role="form">
+                <div class="form-content">
+
+                    <div class="form-group">
+
+                        <p *ngFor="let alert of alerts">
+                            <ngb-alert (close)="closeAlert(alert)" [type]="alert.type">{{ alert.message | translate }}</ngb-alert>
+                        </p>
+
+                        <input
+                        autofocus
+                            [placeholder]="'Full Name' | translate"
+                            name="name"
+                            [(ngModel)]="user.newName"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Email' | translate"
+                            name="email"
+                            [(ngModel)]="user.newEmail"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Phone' | translate"
+                            name="phone"
+                            [(ngModel)]="user.newPhone"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                        />
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+
+                    <h4>Cambiar Contraseña</h4>
+
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Nueva Contraseña '"
+                            name="password"
+                            [(ngModel)]="user.newPassword"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Repetir Nueva Contraseña'"
+                            name="repeatpassword"
+                            [(ngModel)]="repeatpassword"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                        />
+                    </div>
+                </div>
+                <button
+                type="button" class="btn btn-m btn-danger"
+                [routerLink]="['/dashboard']" >
+                Volver
+            </button>
+                &nbsp;
+                <button
+                type="button" class="btn btn-m btn-success"
+                (click)="validation(content)">
+                Guardar
+            </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- //////////////////////////////////MODAL PROVIS//////////////////////////// -->
+
+    <ng-template #content let-modal>
+        <div class="modal-header"  style="padding: 2px;">
+          <div class="modal-title" style="text-align: center; padding-top: 5px; width: 90%;" id="modal-basic-title">Validación</div>
+
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <input
+                    [placeholder]="'Email '"
+                    name="Email"
+                    [(ngModel)]="userLogin.email"
+                    class="form-control input-underline input-lg"
+                    type="email"
+                />
+            </div>
+            <div class="form-group">
+                <input
+                    [placeholder]="'Contraseña '"
+                    name="Contraseña"
+                    [(ngModel)]="userLogin.password"
+                    class="form-control input-underline input-lg"
+                    type="password"
+                />
+            </div>
+
+            &nbsp;
+            <div style=" display: flex; justify-content:space-around ;">
+                <button
+                    style="font-size: small; padding: 5px;"
+                    type="button" class="btn btn-m btn-danger"
+                    (click)="modal.dismiss('Cross click')">
+                    Volver
+                </button>
+
+                <button
+                    style="font-size: small; padding-right: 5px;"
+                    type="button" class="btn btn-m btn-success"
+                    (click)="onLoggedin()">
+                    Guardar
+                </button>
+            </div>
+
+        </div>
+
+
+    </ng-template>
+
+</div>

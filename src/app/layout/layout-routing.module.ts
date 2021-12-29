@@ -19,10 +19,12 @@ const routes: Routes = [
             { path: 'passe', loadChildren: () => import('./internal-passe/passe/passe.module').then((m) => m.PasseModule) },
 
             { path: 'graphics', loadChildren: () => import('./graphics/graphics.module').then((m) => m.GraphicsModule) },
+
             { path: 'dependencies', loadChildren: () => import('./dependecies/dependecies.module').then((m) => m.DependenciesModule) },
 
             { path: 'peaj', loadChildren: () => import('./PEAJ/peaj/peaj.module').then((m) => m.PeajModule) },
-            { path: 'modal', loadChildren: () => import('./internal-passe/modal-provis/modal-provis.module').then((m) => m.ModalProvisModule) },
+
+            { path: 'profile', loadChildren: () => import('./control-user/profile/profile.module').then((m) => m.ProfileModule) },
 
             { path: 'forms', loadChildren: () => import('./dontUse/form/form.module').then((m) => m.FormModule) },
             { path: 'charts', loadChildren: () => import('./dontUse/charts/charts.module').then((m) => m.ChartsModule) },

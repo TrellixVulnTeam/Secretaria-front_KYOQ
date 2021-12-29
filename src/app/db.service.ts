@@ -42,6 +42,10 @@ userList(){
     return this.http.get(this.url + '/auth/list');
 }
 
+userEdit(user:any) {
+    return this.http.post<any>(this.url + '/auth/edit', user);
+  }
+
 logout(type, token){
     const httpOptions = {
         headers: new HttpHeaders({

@@ -33,24 +33,10 @@ export class LoginComponent implements OnInit {
 
     onLoggedin() {
 
-        var userLog;
-
         this.DB.login(this.user).subscribe(
             data => {
-            localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('token_type', data.token_type);
+            console.log("loegueado");
 
-            this.DB.user(data.token_type, data.access_token).subscribe( dataUser => {
-                userLog = dataUser;
-                localStorage.setItem('name', userLog.name);
-                localStorage.setItem('email', userLog.email);
-                localStorage.setItem('role', userLog.role);
-                localStorage.setItem('id', userLog.id);
-                localStorage.setItem('isLoggedin', 'true');
-                localStorage.setItem('PEAJ', userLog.PEAJ);
-                localStorage.setItem('SCE', userLog.SCE);
-                this.router.navigate(['/']);
-            })
         }
         ,
             (error)=> {
@@ -86,7 +72,7 @@ export class LoginComponent implements OnInit {
                             message: err.password[0]
                         });
                     }
-                    this.router.navigate(['/']);
+
         })
 
 
