@@ -12,6 +12,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export class ProfileComponent implements OnInit {
     user={
+        email : '',
+        password:'',
         newId : '',
         newName : '',
         newEmail : '',
@@ -19,10 +21,8 @@ export class ProfileComponent implements OnInit {
         newPassword : ''
         }
 
-    userLogin={
-        email : '',
-        password:'',
-    }
+
+
 
 
     repeatpassword = '';
@@ -42,34 +42,67 @@ export class ProfileComponent implements OnInit {
         newEmail : localStorage.getItem("email"),
         newPhone : localStorage.getItem("phone"),
         newPassword : '',
+        email : '',
+        password:'',
     }
 
   }
 
   validation(content){
-      if (this.user.newPassword != this.repeatpassword) {
 
-          this.alerts.push(
-              {
-                  id: 1,
-                  type: 'danger',
-                  message: "La Contraseña No Coincide"
-              });
+    console.log(this.user.newPassword.length);
 
-        }else{
-            this.open(content);
 
-        }
+
+
+
+            if (this.user.newPassword != this.repeatpassword ) {
+
+                  this.alerts.push(
+                      {
+                          id: 1,
+                          type: 'danger',
+                          message: "La Contraseña No Coincide"
+                      });
+
+                }else{
+                    if (this.user.newPassword.length < 3 && this.user.newPassword.length > 1){
+                        this.alerts.push(
+                            {
+                                id: 1,
+                                type: 'danger',
+                                message: "La Contraseña Debe Contener Mínimo 5 Caracteres"
+                            });
+                        } else {
+                        this.open(content);
+                            }
+            }
   }
 
   onLoggedin() {
 
     var userLog;
 
-    this.DB.login(this.userLogin).subscribe(
+    this.DB.login(this.user).subscribe(
         data => {
-       this.save();
-    },
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('token_type', data.token_type);
+        this.save()
+
+        this.DB.user(data.token_type, data.access_token).subscribe( dataUser => {
+            userLog = dataUser;
+            localStorage.setItem('name', userLog.name);
+            localStorage.setItem('email', userLog.email);
+            localStorage.setItem('role', userLog.role);
+            localStorage.setItem('id', userLog.id);
+            localStorage.setItem('isLoggedin', 'true');
+            localStorage.setItem('PEAJ', userLog.PEAJ);
+            localStorage.setItem('SCE', userLog.SCE);
+
+        })
+        this.modalService.dismissAll();
+    }
+    ,
         (error)=> {
             console.error(error);
             var err = error.error.errors;
@@ -111,10 +144,11 @@ export class ProfileComponent implements OnInit {
   save() {
 
     var userLog;
+    var access_token = localStorage.getItem('access_token');
+    var token_type = localStorage.getItem('token_type');
 
 
-
-        this.DB.userEdit(this.user).subscribe({
+        this.DB.userEdit(token_type, access_token, this.user).subscribe({
           next: data => {
                 userLog = data;
                 localStorage.setItem('name', userLog.name);
@@ -124,6 +158,7 @@ export class ProfileComponent implements OnInit {
                 localStorage.setItem('isLoggedin', 'true');
                 localStorage.setItem('PEAJ', userLog.PEAJ);
                 localStorage.setItem('SCE', userLog.SCE);
+            console.log(data);
 
 
 
@@ -152,7 +187,6 @@ export class ProfileComponent implements OnInit {
     open(content) {
 
           this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-          this.save();
 
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

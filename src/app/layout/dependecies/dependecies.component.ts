@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { off } from 'process';
 import { DataService } from '../../data.service';
 import { DbService } from '../../db.service';
 
@@ -12,6 +13,16 @@ export class DependeciesComponent implements OnInit {
 
     offices:any;
     alerts:any;
+    editing: null;
+
+    changeOffice = {
+        id:"",
+        internal_phone:"",
+        email:"",
+        alternative_email:"",
+        officer_in_charge:""
+    }
+
 
     Offcie_search = {
         name: "",
@@ -74,5 +85,29 @@ export class DependeciesComponent implements OnInit {
 
 
 
+    }
+
+    public changeEditing (office){
+        this.editing = office.id;
+        this.changeOffice = {
+            id : office.id,
+            internal_phone: office.internal_phone,
+            email: office.email,
+            alternative_email: office.alternative_email,
+            officer_in_charge: office.officer_in_charge,
+        }
+
+    }
+    public save(id, index){
+
+        this.DB.Offices_edit(this.changeOffice).subscribe({
+            next: data => {
+                console.log(data);
+                this.offices.data[index] = data;
+                console.log(index);
+
+            }
+        })
+        this.editing = null;
     }
 }

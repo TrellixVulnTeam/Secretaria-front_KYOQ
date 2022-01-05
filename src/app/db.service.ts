@@ -42,8 +42,15 @@ userList(){
     return this.http.get(this.url + '/auth/list');
 }
 
-userEdit(user:any) {
-    return this.http.post<any>(this.url + '/auth/edit', user);
+userEdit(type, token, user) {
+
+    const httpOptions = {
+        headers: new HttpHeaders({
+            'Authorization': type + " " + token,
+        })
+    };
+    console.log(token);
+    return this.http.post<any>(this.url + '/auth/edit', user, httpOptions);
   }
 
 logout(type, token){
@@ -141,6 +148,14 @@ internal_passe_update(internal_passe){
 Offices_list(){
     return this.http.get(this.url + "/offices");
 }
+Offices_edit(office){
+    return this.http.post(this.url + "/offices",office);
+}
+
+Offices_search(data){
+    return this.http.post(this.url + "/offices/search", data);
+}
+
 
 Provis_list(search){
     console.log(search);
@@ -148,9 +163,6 @@ Provis_list(search){
     return this.http.post(this.url + "/provis/search",search);
 }
 
-Offices_search(data){
-    return this.http.post(this.url + "/offices/search", data);
-}
 
 Agrupations_list(){
     return this.http.get(this.url + "/agrupations");
