@@ -110,4 +110,14 @@ export class DependeciesComponent implements OnInit {
         })
         this.editing = null;
     }
+
+    public exportToExcel(){
+        this.DB.Offices_export(this.Offcie_search).subscribe({
+            next:
+                 data => {
+                    console.log(data);
+
+                }
+        })
+    }
 }

@@ -143,7 +143,7 @@ internal_passe_update(internal_passe){
 
 
 
-///////////////////////////////OTHER////////////////////////////////////
+///////////////////////////////OFFICCES////////////////////////////////////
 
 Offices_list(){
     return this.http.get(this.url + "/offices");
@@ -156,12 +156,18 @@ Offices_search(data){
     return this.http.post(this.url + "/offices/search", data);
 }
 
+Offices_export(data){
+    return this.http.post(this.url + "/exports/offices", data);
+}
 
+
+///////////////////////////////OTHER////////////////////////////////////
 Provis_list(search){
     console.log(search);
 
     return this.http.post(this.url + "/provis/search",search);
 }
+
 
 
 Agrupations_list(){

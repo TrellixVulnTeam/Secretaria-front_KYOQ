@@ -21,8 +21,8 @@ export class GraphicsComponent implements OnInit {
 
     // lineChart
     public lineChartData: Array<any> = [
-        { data: [], label: 'Año 2021' },
-      //  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+        { data: [], label: 'Ingresos Año 2021' },
+        { data: [28, 48, 40, 19, 86, 27, 90, 87, 45, 12, 11, 30], label: 'Salida Año 2021' },
       //  { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
     ];
     public lineChartLabels: Array<any> = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre','Noviembre', ' Diciembre'];

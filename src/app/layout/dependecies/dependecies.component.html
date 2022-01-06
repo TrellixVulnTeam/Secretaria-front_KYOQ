@@ -105,7 +105,15 @@
                   <th class="titles" style="padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);"> Email</th>
                   <th class="titles" style="padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" >Email Alternativo</th>
                   <th style="width: 200px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles" >Funcionario a Cargo</th>
-                  <th style="width: 70px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);"></th>
+                  <th style="width: 70px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);">
+                    <button class="btn btn-outline-success"
+                        style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
+                        type="button"
+                        (click)="exportToExcel()">
+                        Exportar
+                    </button>
+
+                </th>
               </tr>
           </thead>
           <tbody  *ngFor="let office of offices.data; let i = index ">
