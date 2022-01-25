@@ -120,4 +120,15 @@ export class DependeciesComponent implements OnInit {
                 }
         })
     }
+
+
+    public Excel(){
+        this.DB.Excel_export().subscribe({
+            next:
+            data => {
+               console.log(data);
+
+           }
+        });
+    }
 }

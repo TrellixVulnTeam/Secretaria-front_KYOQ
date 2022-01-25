@@ -135,6 +135,7 @@
                     <th class="small pt-0 pb-0 px-2" style="width: 20px;">N°</th>
                     <th class="small pt-0 pb-0 px-2" style="width: 130px;">Numero</th>
                     <th class="small pt-0 pb-0 px-2" style="width: 200px;">Iniciador</th>
+                    <th style="width:100px;" class="small pt-0 pb-0 px-2">Fecha Pase</th>
                     <th class="small pt-0 pb-0 px-2">Referencia</th>
                     <th class="small pt-0 pb-0 px-2"style="width: 130px;">Grupo</th>
                     <th class="small pt-0 pb-0 px-2" style="width: 100px;">en Posesion</th>
@@ -155,6 +156,7 @@
                         <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)"  > {{files.from + i}} </td>
                         <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)" > {{file.dependence_number}}-{{file.central_number}}-{{file.final_number}} </td>
                         <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)" > {{file.initiator}} </td>
+                        <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)" > {{file.updated_at | date: 'dd-MM-yyyy HH:mm:ss'}} </td>
                         <td class="small pt-0 pb-0 px-2" (click)="see_passe(file.id)"> {{file.concept}} </td>
                        <td *ngIf="editing == file.id; else elseBlock" >
                             <select class="form-control mr-1 p-0 text-center h-25 small"

@@ -2,6 +2,7 @@ import { ViewChild, Component, OnInit, ElementRef, HostListener, SimpleChanges} 
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
 import { DbService } from "../../../db.service";
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-list-exp',
@@ -52,6 +53,7 @@ export class ListExpComponent implements OnInit {
         default:
             break;
     }
+
   }
 
     constructor(private DB: DbService, private DATA: DataService, private router: Router) {
@@ -68,6 +70,7 @@ export class ListExpComponent implements OnInit {
                 next:
                      data =>{
                          this.files = data;
+                         console.log(data);
 
                         }});
 
@@ -99,9 +102,6 @@ export class ListExpComponent implements OnInit {
 
         const aux = this.files.data.filter(x => x.id === id_file);
         this.fileSerch.search_agrupation_id = aux[0].agrupation_id;
-
-        console.log( this.fileSerch.search_agrupation_id);
-
     }
 
     public cancel_update(){
@@ -119,8 +119,6 @@ export class ListExpComponent implements OnInit {
             id : id,
             agrupation_id : this.fileSerch.search_agrupation_id
           }
-          console.log(data);
-
 
          this.DB.File_update(data).subscribe({
              next:
@@ -149,7 +147,6 @@ export class ListExpComponent implements OnInit {
 
     public search(){
 
-        console.log(this.fileSerch);
         if(this.fileSerch.search_status ){
             this.fileSerch.search_status = "1"
         }else{this.fileSerch.search_status = "0"}
@@ -160,8 +157,6 @@ export class ListExpComponent implements OnInit {
                 next:
                 data =>{
                     this.files = data;
-                    console.log(this.files);
-
                 }});
             }
 
@@ -187,8 +182,6 @@ export class ListExpComponent implements OnInit {
             next:
                  data =>{
                      this.files = data;
-                     console.log(this.files);
-
                     }});
 
     }
@@ -203,15 +196,12 @@ export class ListExpComponent implements OnInit {
     public changeFocus(n){
 
         if (n === 1 && this.fileSerch.search_dependence_number.length === 5){
-        console.log("cambia " + n);
-        this.N2.nativeElement.focus();}
+            this.N2.nativeElement.focus();}
 
         if (n === 2 && this.fileSerch.search_central_number.length === 7){
-        console.log("cambia " + n);
-        this.N3.nativeElement.focus();}
+            this.N3.nativeElement.focus();}
 
         if (n === 3 && this.fileSerch.search_final_number.length === 1){
-            console.log("cambia " + n);
             this.BSearch.nativeElement.focus();}
 
     }

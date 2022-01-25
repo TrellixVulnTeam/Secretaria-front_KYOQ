@@ -159,12 +159,14 @@ Offices_search(data){
 Offices_export(data){
     return this.http.post(this.url + "/exports/offices", data);
 }
+Excel_export(){
 
+    //window.open(this.url + '/exports/excel', "_blank");
+    return this.http.get(this.url + "/exports/excel");
+}
 
 ///////////////////////////////OTHER////////////////////////////////////
 Provis_list(search){
-    console.log(search);
-
     return this.http.post(this.url + "/provis/search",search);
 }
 

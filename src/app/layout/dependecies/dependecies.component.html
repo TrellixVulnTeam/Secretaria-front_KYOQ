@@ -109,7 +109,7 @@
                     <button class="btn btn-outline-success"
                         style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
                         type="button"
-                        (click)="exportToExcel()">
+                        (click)="Excel()">
                         Exportar
                     </button>
 
@@ -117,7 +117,7 @@
               </tr>
           </thead>
           <tbody  *ngFor="let office of offices.data; let i = index ">
-                  <td class="date" style="text-align: center;" > {{i+1}} </td>
+                  <td class="date" style="text-align: center;" > {{(i+1)+(offices.per_page * (offices.current_page-1)) }} </td>
                   <td class="date" style="background-color:rgb(237, 237, 237);"> {{office.name}} </td>
 
                   <td class="date" style="text-align: center;"
