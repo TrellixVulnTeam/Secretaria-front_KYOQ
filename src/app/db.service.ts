@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class DbService {
 
     public alerts: Array<any> = [];
-    url = "http://srvlaravel.educ.sfnet:8000/api"
+    url = "http://127.0.0.1:8000/api"
     users : any;
 
 
@@ -65,7 +65,8 @@ logout(type, token){
 ///////////////////////////////FILES////////////////////////////////////
 
 file_total(){
-    return this.http.get(this.url + "/files/total");
+    var id = localStorage.getItem('id')
+    return this.http.get(this.url + "/files/total/" + id);
 }
 
 File_list(status:any){
@@ -164,6 +165,47 @@ Excel_export(){
     //window.open(this.url + '/exports/excel', "_blank");
     return this.http.get(this.url + "/exports/excel");
 }
+///////////////////////////////normativas////////////////////////////////////
+Normativas_search(data){
+    return this.http.post(this.url + "/normativas/search", data);
+}
+Normativas_export(name){
+    window.open(this.url + "/normativas/export/" + name, "_blank");
+}
+Normativas_see(name){
+    window.open(this.url + "/normativas/see/"+ name, "_blank");
+}
+Normativas_agrupations_list(){
+    return this.http.get(this.url + "/normativas/agrupations");
+}
+Normativas_types_list(){
+    return this.http.get(this.url + "/normativas/types");
+}
+
+Nomativas_create(fileToUpload: File){
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+
+    const formData: FormData = new FormData();
+    formData.append('archivo', fileToUpload, fileToUpload.name);
+
+    console.log(formData);
+
+    return this.http.post(this.url + "/normativas/create", fileToUpload,{headers: headers});
+}
+
+
+
+uploadFile(archivo):Observable<any>{
+    let json=JSON.stringify(archivo);
+    let params = "json="+json;
+    console.log(params);
+    let headers=new HttpHeaders().set('Content-Type', 'application/pdf').set('Accept','*/*');
+    return this.http.post(this.url + "/normativas/create",params,{headers: headers});
+  }
 
 ///////////////////////////////OTHER////////////////////////////////////
 Provis_list(search){

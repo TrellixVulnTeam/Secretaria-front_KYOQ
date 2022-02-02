@@ -86,6 +86,7 @@ export class ListExpComponent implements OnInit {
                     this.users = data;
                 }
             })
+            this.fileSerch.search_site_id = "";
     }
 
     ngAfterViewInit() {

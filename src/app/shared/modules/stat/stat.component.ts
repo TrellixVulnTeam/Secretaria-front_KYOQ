@@ -8,8 +8,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class StatComponent implements OnInit {
     @Input() bgClass: string;
     @Input() icon: string;
+    @Input() type_icon: boolean = true;
     @Input() count: number;
     @Input() label: string;
+    @Input() inUser:number;
     @Input() data: number;
     @Output() event: EventEmitter<any> = new EventEmitter();
 

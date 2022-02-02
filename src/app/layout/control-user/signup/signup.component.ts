@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { DbService } from "../../../db.service";
 import { Router } from '@angular/router';
@@ -20,6 +20,25 @@ export class SignupComponent implements OnInit {
 
 
     public alerts: Array<any> = [];
+
+    @HostListener('window:keyup', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+    switch (event.key) {
+        case 'Enter':
+            this.signup();
+            break;
+
+        case "Escape":
+           this.router.navigate(['/login']);
+
+
+            break;
+
+        default:
+            break;
+    }
+}
+
 
     constructor(private DB: DbService, public router: Router ) {
 

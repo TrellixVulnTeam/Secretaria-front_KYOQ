@@ -22,6 +22,8 @@ const routes: Routes = [
 
             { path: 'dependencies', loadChildren: () => import('./dependecies/dependecies.module').then((m) => m.DependenciesModule) },
 
+            { path: 'normativas', loadChildren: () => import('./normativas/normativas.module').then((m) => m.NormativasModule) },
+
             { path: 'peaj', loadChildren: () => import('./PEAJ/peaj/peaj.module').then((m) => m.PeajModule) },
 
             { path: 'profile', loadChildren: () => import('./control-user/profile/profile.module').then((m) => m.ProfileModule) },

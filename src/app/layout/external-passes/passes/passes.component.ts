@@ -265,9 +265,7 @@ export class PassesComponent implements OnInit {
     }
 
     public exports(id){
-        console.log(id);
-
-        this.DB.External_passe_export(id);
+            this.DB.External_passe_export(id);
     }
 
 }
