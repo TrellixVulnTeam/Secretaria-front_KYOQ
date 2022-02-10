@@ -26,6 +26,8 @@ const routes: Routes = [
 
             { path: 'peaj', loadChildren: () => import('./PEAJ/peaj/peaj.module').then((m) => m.PeajModule) },
 
+            { path: 'Not-Objetions', loadChildren: () => import('./PEAJ/not-objetions/not-objetions.module').then((m) => m.NotObjetionsModule) },
+
             { path: 'profile', loadChildren: () => import('./control-user/profile/profile.module').then((m) => m.ProfileModule) },
 
             { path: 'forms', loadChildren: () => import('./dontUse/form/form.module').then((m) => m.FormModule) },

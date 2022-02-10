@@ -11,7 +11,6 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 
 
-
 @NgModule({
     imports: [CommonModule, LayoutRoutingModule, TranslateModule, NgbDropdownModule,FormsModule],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]

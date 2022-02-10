@@ -1,0 +1,39 @@
+.titles{
+    padding: 0px;
+    padding-left: 20px;
+    font-size: small;
+    font-weight: normal;
+}
+
+.date{
+    padding: 0px;
+    font-size: small;
+    font-weight: normal;
+}
+
+.rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+p{
+    font-size: small;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+input{
+    margin-right: 6px;
+    text-align: center;
+}
+
+.peke {
+    font-size: small;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+

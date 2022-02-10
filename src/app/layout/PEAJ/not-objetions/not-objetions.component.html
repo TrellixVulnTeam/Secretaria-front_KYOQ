@@ -1,0 +1,121 @@
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">Listado de No Objeciones
+        <button
+            type="button"
+            class="btn btn-m btn-danger"
+            [routerLink]="['/dashboard']">
+            Volver
+        </button>
+    </div>
+</div>
+<!-- search -->
+<div>
+    <table class="table table-hover table-striped m-0">
+      <thead>
+          <tr class="mx-auto">
+              <th class="titles">Puesto</th>
+              <th class="titles">Tipo Puesto</th>
+              <th class="titles">Tipo Contrato</th>
+              <th class="titles">Apellido</th>
+              <th class="titles">Nombre</th>
+              <th class="titles">CUIT</th>
+              <th class="titles">Tarea</th>
+              <th class="titles">Desde</th>
+              <th class="titles">Hasta</th>
+              <th class="titles">Dedicación</th>
+              <th class="titles">Honorarios</th>
+              <th class="titles">PG</th>
+              <th class="titles">Observaciones</th>
+              <th class="titles">Dependencia Nacional</th>
+              <th class="titles">Fecha Nota</th>
+              <th class="titles">Observaciones</th>
+              <th class="titles">Importe Total</th>
+              <th class="titles">Dependencia</th>
+          </tr>
+      </thead>
+      <tbody>
+          <td style="display: flex;">
+           <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm"
+              style="font-size: small;"
+              [(ngModel)]="normativa_search.type">
+              <option value="name"> Nombre </option>
+
+          </select>
+              <td style="width: auto;">
+                  <input type="text"
+                      style="font-size: small;"
+                      class="form-control mr-1 p-0 text-center h-25"
+                      [(ngModel)]="normativa_search.number"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm">
+              </td>
+
+              <td>
+                  <input type="text"
+                  style="font-size: small;"
+                  class="form-control mr-1 p-0 text-center h-25"
+                  [(ngModel)]="normativa_search.year"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-sm">
+              </td>
+
+              <td>
+                  <input type="text"
+                      style="font-size: small;"
+                      class="form-control mr-1 p-0 text-center h-25"
+                      [(ngModel)]="normativa_search.reference"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm">
+              </td>
+
+              <td >
+                  <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
+                      style="font-size: small;"
+                      [(ngModel)]="normativa_search.agrupation">
+
+                      <option value="name"> sumario </option>
+
+                  </select>
+
+
+              <td style="display: flex;">
+                  <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
+                      style="font-size: small;"
+                      [(ngModel)]="normativa_search.order_by">
+
+                      <option value="type_id"> Tipo </option>
+                      <option value="number"> Numero </option>
+                      <option value="year"> Año </option>
+                      <option value="agrupation_id"> Agrupación </option>
+
+                  </select>
+
+                      <img
+                          id="arrow"
+                          src="assets/images/flecha.png"
+                          style="width: 19px; height: 19px;"
+                          class="rotate180"
+                          (click)= invert_order()
+                          />
+
+              </td>
+
+              <td style="padding: 8px;">
+                  <button #BSearch
+                      class="btn btn-outline-info small pt-0 pb-0 px-2"
+                      type="button"
+                      (click)="search_normativa()">
+                      buscar
+                  </button>
+              </td>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- end search -->

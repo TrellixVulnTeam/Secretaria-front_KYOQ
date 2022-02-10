@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
     permissions ={
         SCE:false,
         PEAJ:false,
+        NOTO:false,
     };
 
     constructor( private DB : DbService, private DATA : DataService) {
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
 
                         if (localStorage.getItem('PEAJ') === "1") {this.permissions.PEAJ = true;}else{this.permissions.PEAJ = false;}
                         if (localStorage.getItem('SCE') === "1") {this.permissions.SCE = true;}else{this.permissions.SCE = false;}
+                        if (localStorage.getItem('NOTO') === "1") {this.permissions.NOTO = true;}else{this.permissions.NOTO = false;}
                         console.log(this.permissions);
 
 

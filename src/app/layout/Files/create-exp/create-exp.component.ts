@@ -45,9 +45,16 @@ export class CreateExpComponent implements OnInit {
     handleKeyboardEvent(event: KeyboardEvent) {
     switch (event.key) {
         case 'Enter':
-            this.search();
+        if(this.firstSearch) {this.search();}
+         else{
+            if(this.fileSearch.search_initiator == ""){
+                this.see_passe(this.fileSearch.search_id)
+                this.router.navigate(['/passes']);
+            }else{
+                this.saveExp();
+            }
             break;
-
+       }
         case "Escape":
             this.router.navigate(['/listExp']);
 

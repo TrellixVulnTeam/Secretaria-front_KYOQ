@@ -1,0 +1,267 @@
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">Listado de Normativas del Ministerio de Educación
+        <button
+            type="button"
+            class="btn btn-m btn-danger"
+            [routerLink]="['/dashboard']">
+            Volver
+        </button>
+    </div>
+
+    <!-- search -->
+    <div>
+      <table class="table table-hover table-striped m-0">
+        <thead>
+            <tr class="mx-auto">
+                <th style="width: 150px; " class="titles">Tipo</th>
+                <th style="width: 120px;" class="titles">Numero</th>
+                <th style="width: 80px;" class="titles">Año</th>
+                <th class="titles">Referencia</th>
+                <th style="width: 200px;" class="titles">Agrupación</th>
+                <th style="width: 200px;" class="titles" >Ordenar por</th>
+                <th style="width: 40px;" class="titles"  ></th>
+            </tr>
+        </thead>
+        <tbody>
+            <td style="display: flex;">
+             <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                style="font-size: small;"
+                [(ngModel)]="normativa_search.type">
+                <option></option>
+                <option *ngFor="let agrupation of types" [value]="agrupation.id"> {{agrupation.name}} </option>
+
+            </select>
+                <td style="width: auto;">
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="normativa_search.number"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+
+                <td>
+                    <input type="text"
+                    style="font-size: small;"
+                    class="form-control mr-1 p-0 text-center h-25"
+                    [(ngModel)]="normativa_search.year"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm">
+                </td>
+
+                <td>
+                    <input type="text"
+                        style="font-size: small;"
+                        class="form-control mr-1 p-0 text-center h-25"
+                        [(ngModel)]="normativa_search.reference"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm">
+                </td>
+
+                <td >
+                    <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        style="font-size: small;"
+                        [(ngModel)]="normativa_search.agrupation">
+                        <option></option>
+                        <option *ngFor="let agrupation of agrupations" [value]="agrupation.id"> {{agrupation.name}} </option>
+
+                    </select>
+
+
+                <td style="display: flex;">
+                    <select class="form-control small mr-1 p-0 b-0 text-center w-100 h-75 peke"
+                        aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm"
+                        style="font-size: small;"
+                        [(ngModel)]="normativa_search.order_by">
+
+                        <option value="type_id"> Tipo </option>
+                        <option value="number"> Numero </option>
+                        <option value="year"> Año </option>
+                        <option value="agrupation_id"> Agrupación </option>
+
+                    </select>
+
+                        <img
+                            id="arrow"
+                            src="assets/images/flecha.png"
+                            style="width: 19px; height: 19px;"
+                            class="rotate180"
+                            (click)= invert_order()
+                            />
+
+                </td>
+
+                <td style="padding: 8px;">
+                    <button #BSearch
+                        class="btn btn-outline-info small pt-0 pb-0 px-2"
+                        type="button"
+                        (click)="search_normativa()">
+                        buscar
+                    </button>
+
+                </td>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- end search -->
+
+
+    <div>
+        <table class="table table-hover table-striped m-0">
+          <thead>
+              <tr class="mx-auto" style="text-align: center;">
+                  <th style="width: 10px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">N°</th>
+                  <th class="titles" style="width: 100px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);"> Tipo</th>
+                  <th style="width: 100px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">Numero</th>
+                  <th style="width:50px; padding: 2px; font-weight: bolder;  background-color:rgb(237, 237, 237);" class="titles">Año</th>
+                  <th style="padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" class="titles">Referencia</th>
+                  <th class="titles" style="width: 150px;padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);" >Agrupación</th>
+                  <th style="width: 70px; padding: 2px; font-weight: bolder; background-color:rgb(237, 237, 237);">
+                    <button class="btn btn-outline-success"
+                        style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
+                        type="button"
+                        (click)="open(content)">
+                        Nueva
+                    </button>
+
+                </th>
+              </tr>
+          </thead>
+          <tbody  *ngFor="let normativa of normativas.data; let i = index ">
+                  <td class="date" style="text-align: center;" > {{(i+1)+(normativas.per_page * (normativas.current_page-1)) }} </td>
+                  <td class="date" style="text-align: center;background-color:rgb(237, 237, 237);"> {{normativa.type.name}} </td>
+                  <td class="date" style="text-align: center;"> {{normativa.number}}</td>
+                  <td class="date" style="text-align: center; background-color:rgb(237, 237, 237);"> {{normativa.year}} </td>
+                  <td class="date" style="text-align: center;"> {{normativa.reference}}</td>
+                  <td class="date" style="text-align: center; background-color:rgb(237, 237, 237);"> {{normativa.agrupation.name}} </td>
+                    <td class="date" style=" text-align: center; display: flex; justify-content: center;">
+                        <button class="btn btn-outline-info"
+                            style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
+                            type="button"
+                            (click)="see(normativa.name)">
+                            ver
+                        </button>
+                        <button class="btn btn-outline-info"
+                            style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
+                            type="button"
+                            (click)="export(normativa.name)">
+                            Descargar
+                        </button>
+                    </td>
+            </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+<!-- //////////////////////////////////MODAL PROVIS//////////////////////////// -->
+
+<ng-template #content let-modal>
+    <div class="modal-header"  style="padding: 2px;">
+         <div class="modal-title" style="text-align: center; padding-top: 5px; width: 90%;" id="modal-basic-title">Agregar Normativa </div>
+        <button
+        style="font-size: small;"
+        type="button" class="btn btn-m btn-danger"
+        (click)="modal.dismiss('Cross click')">
+        Volver
+    </button>
+      </div>
+
+       <div class="modal-body">
+        <div style="display: flex;">
+            <div>
+                <p style="font-size: small;margin-bottom: 2px; ">Tipo<p>
+                <select class="form-control small mr-1 p-0 b-0 text-center peke"
+                style="width: 200px; height: 25px;"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                [(ngModel)]="new_normativa.type">
+                    <option  *ngFor="let type of types" [value]="type.id" >
+                        {{type.name}}
+                    </option>
+            </select>
+
+            </div>
+            <div>
+                <p style="font-size: small; ;">Numero<p>
+                <input type="text"
+                 style="font-size: small;width: 150px"
+                 [(ngModel)]="new_normativa.number">
+            </div>
+            <div>
+                <p style="font-size: small; ">Año<p>
+                    <input type="text"
+                     style="font-size: small;width: 100px;"
+                     [(ngModel)]="new_normativa.year">
+                </div>
+            </div>
+                <div>
+            <p style="font-size: small;">Referencia<p>
+            <textarea style="font-size: small; width: 100%;"rows="5"
+                [(ngModel)]="new_normativa.reference">
+            </textarea>
+        </div>
+        <div >
+            <p style="font-size: small; text-align: left; padding-left: 40px;">Agrupación<p>
+                    <div style="display:flex; ">
+                <select class="form-control small mr-1 p-0 b-0 text-center peke"
+                    style="width: 160px; height: 25px;"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm"
+                    [(ngModel)]="new_normativa.agrupation">
+                        <option  *ngFor="let agrupation of agrupations" [value]="agrupation.id" >
+                            {{agrupation.name}}
+                        </option>
+                </select>
+                <input type="file" accept="application/pdf" (change)='seleccionarArchivo($event)'>
+            </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <button
+        style="font-size: small;"
+        type="button" class="btn btn-m btn-outline-success"
+        (click)="onSubmit()">
+        Guardar
+    </button>
+      </div>
+</ng-template>
+
+
+      <!-- pagination -->
+<div>
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center ">
+        <ul class="pagination" *ngFor = " let item of normativas.links; let i = index">
+
+            <div *ngIf="item.active; else noActive">
+                <li class="page-item active"  >
+                    <a class="page-link p-0 pl-1 pr-1 active" style="margin: 1px;" [innerHTML]= item.label></a>
+                </li>
+            </div>
+            <ng-template #noActive >
+
+
+                <ng-container *ngIf="(normativas.current_page === normativas.last_page && i == normativas.last_page +1) || (normativas.current_page === 1 && i ==0)    ; else elseTemplate">
+                    <li class="page-item disabled">
+                        <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;" [innerHTML]= item.label></p>
+                    </li>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <li class="page-item"  >
+                        <p class="page-link p-0 pl-1 pr-1 " style="margin: 1px;"  (click)="goToUrl(item.url)" [innerHTML]= item.label></p>
+                    </li>
+                </ng-template>
+
+            </ng-template>
+        </ul>
+    </nav>
+</div>
+<!-- pagination end -->
+

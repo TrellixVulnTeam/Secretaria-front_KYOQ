@@ -1,5 +1,6 @@
 <div [@routerTransition]>
     <h2 class="text-muted">Principal </h2>
+    <p style="font-size: xx-small;">V 2.0</p>
     <div class="row">
         <div class="col-md-12">
             <ngb-carousel>
@@ -13,6 +14,7 @@
                     <div class="carousel-caption">
                        <p style="margin: 0; margin-left: 90px;">Ministerio de Educación </p>
                        <p style="margin: 0; margin-left: 90px; font-size: small;"> Secretaría de Educación </p>
+
                     </div>
                 </ng-template>
             </ngb-carousel>
@@ -29,11 +31,11 @@
             <app-stat [bgClass]="'warning'" [count]="total_file.active " [inUser]="total_file.totalUser" [type_icon] = false [icon]="'assets/images/list-exp.png'" [label]="'lista Expedientes'"></app-stat>
         </div>
 
-        <div class="col-xl-3 col-lg-6" [routerLink]="['/normativas']">
+        <div class="col-xl-3 col-lg-6" [routerLink]="['/normativas']"*ngIf = "permissions.SCE">
             <app-stat [bgClass]="'success'" [count]="" [type_icon] = false [icon]="'assets/images/libros.png'" [label]="'Normativas'"></app-stat>
         </div>
 
-        <div class="col-xl-3 col-lg-6" [routerLink]="['/dependencies']">
+        <div class="col-xl-3 col-lg-6" [routerLink]="['/dependencies']"*ngIf = "permissions.SCE">
             <app-stat [bgClass]="'danger'"   [type_icon] = false [icon]="'assets/images/dependencias.png'"[label]="'Dependecias'"></app-stat>
         </div>
     </div>
@@ -48,5 +50,8 @@
             <app-stat [bgClass]="'success'" [count]="" [icon]="'fa-shopping-cart'" [label]="'PEAJ'"></app-stat>
         </div>
     </div>
-
+    <h2 class="text-muted"*ngIf = "permissions.NOTO"><small>No Objeciones</small> </h2>
+    <div class="col-xl-3 col-lg-6" *ngIf = "permissions.NOTO " [routerLink]="['/Not-Objetions']">
+        <app-stat [bgClass]="'success'" [count]="" [icon]="'fa-shopping-cart'" [label]="'Cargar No Objeciones'"></app-stat>
+    </div>
 </div>

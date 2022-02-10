@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('isLoggedin', 'true');
                 localStorage.setItem('PEAJ', userLog.PEAJ);
                 localStorage.setItem('SCE', userLog.SCE);
+                localStorage.setItem('NOTO', userLog.NOTO);
                 this.router.navigate(['/']);
             })
         }

@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class DbService {
 
     public alerts: Array<any> = [];
-    url = "http://127.0.0.1:8000/api"
+    url = " http://127.0.0.1:8000/api"
     users : any;
 
 
@@ -182,30 +182,13 @@ Normativas_types_list(){
     return this.http.get(this.url + "/normativas/types");
 }
 
-Nomativas_create(fileToUpload: File){
+Nomativas_create(new_normativa:any){
 
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    let headers=new HttpHeaders().set('Content-Type', 'application/pdf').set('Accept','*/*');
 
-
-    const formData: FormData = new FormData();
-    formData.append('archivo', fileToUpload, fileToUpload.name);
-
-    console.log(formData);
-
-    return this.http.post(this.url + "/normativas/create", fileToUpload,{headers: headers});
+    return this.http.post(this.url + "/normativas/create",new_normativa);
 }
 
-
-
-uploadFile(archivo):Observable<any>{
-    let json=JSON.stringify(archivo);
-    let params = "json="+json;
-    console.log(params);
-    let headers=new HttpHeaders().set('Content-Type', 'application/pdf').set('Accept','*/*');
-    return this.http.post(this.url + "/normativas/create",params,{headers: headers});
-  }
 
 ///////////////////////////////OTHER////////////////////////////////////
 Provis_list(search){

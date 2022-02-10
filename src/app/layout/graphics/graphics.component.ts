@@ -21,7 +21,7 @@ export class GraphicsComponent implements OnInit {
 
     // lineChart
     public lineChartData: Array<any> = [
-        { data: [], label: 'Ingresos Año 2021' },
+        { data: [], label: 'Ingresos Año 2022' },
         { data: [], label: 'Salida Año 2022' },
       //  { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
     ];
@@ -90,30 +90,30 @@ export class GraphicsComponent implements OnInit {
 
      })
      this.lineChartData[0].data.pop();
-     this.GS.line(2021).subscribe({
+     this.GS.line(2022).subscribe({
          next: data=>{
              console.log(data);
 
             this.line = data;
             this.line.forEach(element => {
                 this.lineChartData[0].data.push(element.total)
-
+                this.lineChartData[1].data.push(element.out)
             });
         }
     })
 
-    this.lineChartData[1].data.pop();
-    this.GS.line(2022).subscribe({
-        next: data=>{
-            console.log(data);
+    // this.lineChartData[1].data.pop();
+    // this.GS.line(2022).subscribe({
+    //     next: data=>{
+    //         console.log(data);
 
-           this.line = data;
-           this.line.forEach(element => {
-               this.lineChartData[1].data.push(element.total)
+    //        this.line = data;
+    //        this.line.forEach(element => {
+    //            this.lineChartData[1].data.push(element.total)
 
-           });
-       }
-   })
+    //        });
+    //    }
+//    })
 
    console.log(this.lineChartData);
 
