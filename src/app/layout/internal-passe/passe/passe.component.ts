@@ -185,7 +185,7 @@ export class PasseComponent implements OnInit {
 
         this.aux = this.newInternalPasse.response;
 
-        this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {size: 'lg',backdrop: 'static', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
           this.newInternalPasse.response = result;
 

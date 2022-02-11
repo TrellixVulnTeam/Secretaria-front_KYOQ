@@ -40,21 +40,21 @@ export class CreateExpComponent implements OnInit {
     @ViewChild('N2') N2:ElementRef;
     @ViewChild('N3') N3:ElementRef;
     @ViewChild('BSearch') BSearch:ElementRef;
+    @ViewChild('Init') Init:ElementRef;
+    @ViewChild('SeePasses') SeePasses:ElementRef;
+
 
     @HostListener('window:keyup', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
     switch (event.key) {
         case 'Enter':
-        if(this.firstSearch) {this.search();}
-         else{
-            if(this.fileSearch.search_initiator == ""){
-                this.see_passe(this.fileSearch.search_id)
-                this.router.navigate(['/passes']);
-            }else{
+        if(!this.firstSearch) {this.search(); this.changeFocus(4); break;}
+
+        if(this.empty && !this.firstSearch){
                 this.saveExp();
+                console.log("vaaa a save");
             }
-            break;
-       }
+        break;
         case "Escape":
             this.router.navigate(['/listExp']);
 
@@ -121,7 +121,6 @@ export class CreateExpComponent implements OnInit {
                 this.fileSearch.search_group = "";
                 this.fileSearch.search_status = 1;
 
-
                 }else{
 
                     this.fileSearch.search_id = this.aux.data[0].id;
@@ -134,6 +133,7 @@ export class CreateExpComponent implements OnInit {
                     this.fileSearch.search_status = this.aux.data[0].status;
 
                     this.empty = false;
+
                 }
                 this.firstSearch = true;
 
@@ -143,8 +143,11 @@ export class CreateExpComponent implements OnInit {
                     this.activate = false;
                 }
 
+                this.changeFocus(4);
+
             });
         }
+
     }
 
   saveExp() {
@@ -194,17 +197,16 @@ export class CreateExpComponent implements OnInit {
     public changeFocus(n){
 
         if (n === 1 && this.fileSearch.search_dependence_number.length === 5){
-        console.log("cambia " + n);
         this.N2.nativeElement.focus();}
 
         if (n === 2 && this.fileSearch.search_number .length === 7){
-        console.log("cambia " + n);
         this.N3.nativeElement.focus();}
 
         if (n === 3 && this.fileSearch.search_final_number.length === 1){
-            console.log("cambia " + n);
-            this.BSearch.nativeElement.focus();}
+        this.BSearch.nativeElement.focus();}
 
+        if (n === 4 && this.empty){
+        this.Init.nativeElement.focus();} else{this.SeePasses.nativeElement.focus();}
     }
 
     public closeAlert(alert: any) {
@@ -212,3 +214,4 @@ export class CreateExpComponent implements OnInit {
         this.alerts.splice(index, 1);
         }
 }
+

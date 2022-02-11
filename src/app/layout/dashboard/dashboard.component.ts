@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
         SCE:false,
         PEAJ:false,
         NOTO:false,
+        CON: false,
     };
 
     constructor( private DB : DbService, private DATA : DataService) {
@@ -67,6 +68,7 @@ export class DashboardComponent implements OnInit {
                         if (localStorage.getItem('PEAJ') === "1") {this.permissions.PEAJ = true;}else{this.permissions.PEAJ = false;}
                         if (localStorage.getItem('SCE') === "1") {this.permissions.SCE = true;}else{this.permissions.SCE = false;}
                         if (localStorage.getItem('NOTO') === "1") {this.permissions.NOTO = true;}else{this.permissions.NOTO = false;}
+                        if (localStorage.getItem('CON') === "1") {this.permissions.CON = true;}else{this.permissions.CON = false;}
                         console.log(this.permissions);
 
 

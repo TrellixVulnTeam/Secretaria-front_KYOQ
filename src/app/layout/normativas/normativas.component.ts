@@ -141,6 +141,15 @@ export class NormativasComponent implements OnInit {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this. new_normativa = {
+                name:"",
+                type: "",
+                number: "",
+                year:"",
+                reference: "",
+                agrupation:"",
+                file: "",
+            };
         });
       }
 
@@ -194,5 +203,8 @@ export class NormativasComponent implements OnInit {
 
            }
        })
+       this.modalService.dismissAll();
+
+
     }
     }

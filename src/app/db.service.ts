@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class DbService {
 
     public alerts: Array<any> = [];
-    url = " http://127.0.0.1:8000/api"
+    url = " http://10.4.12.14:8000/api"
     users : any;
 
 
