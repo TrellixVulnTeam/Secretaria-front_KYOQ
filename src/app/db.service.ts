@@ -9,6 +9,7 @@ export class DbService {
 
     public alerts: Array<any> = [];
     url = " http://10.4.12.14:8000/api"
+    //url = " http://localhost:8000/api"
     users : any;
 
 
@@ -162,8 +163,8 @@ Offices_export(data){
 }
 Excel_export(){
 
-    //window.open(this.url + '/exports/excel', "_blank");
-    return this.http.get(this.url + "/exports/excel");
+    window.open(this.url + "/exportExcel" , "_blank");
+    return this.http.get(this.url + "/exportExcel");
 }
 ///////////////////////////////normativas////////////////////////////////////
 Normativas_search(data){
@@ -188,7 +189,28 @@ Nomativas_create(new_normativa:any){
 
     return this.http.post(this.url + "/normativas/create",new_normativa);
 }
+///////////////////////////////POST-IT////////////////////////////////////
 
+PostItList(){
+    return this.http.get(this.url + "/postit/" + localStorage.getItem("id"));
+}
+PostItEdit(data){
+    return this.http.post(this.url + "/postit/edit", data);
+}
+
+PostITDetroy(id){
+    return this.http.get(this.url + "/postit/destroy/" + id);
+}
+
+PostItCreate(data){
+    return this.http.post(this.url + "/postit/create", data);
+}
+
+PostItShare(data){
+    console.log(data);
+
+    return this.http.post(this.url + "/postit/share", data);
+}
 
 ///////////////////////////////OTHER////////////////////////////////////
 Provis_list(search){

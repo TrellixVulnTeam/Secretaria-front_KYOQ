@@ -2,7 +2,7 @@ import { ViewChild, Component, OnInit, ElementRef, HostListener, SimpleChanges} 
 import { Router } from '@angular/router';
 import { DataService } from '../../../data.service';
 import { DbService } from "../../../db.service";
-import {formatDate} from '@angular/common';
+
 
 @Component({
   selector: 'app-list-exp',

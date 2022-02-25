@@ -4,7 +4,10 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-         <a [routerLinkActive]="['router-link-active']" [routerLink]="['/graphics']" class="list-group-item">
+         <a *ngIf = "SCE == 1"
+            [routerLinkActive]="['router-link-active']"
+             [routerLink]="['/graphics']"
+              class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Charts' | translate }}</span>
         </a>

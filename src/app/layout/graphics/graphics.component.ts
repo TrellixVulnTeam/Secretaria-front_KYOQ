@@ -22,7 +22,7 @@ export class GraphicsComponent implements OnInit {
     // lineChart
     public lineChartData: Array<any> = [
         { data: [], label: 'Ingresos Año 2022' },
-        { data: [], label: 'Salida Año 2022' },
+        { data: [], label: 'Egresos Año 2022' },
       //  { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
     ];
     public lineChartLabels: Array<any> = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre','Noviembre', ' Diciembre'];
@@ -101,19 +101,6 @@ export class GraphicsComponent implements OnInit {
             });
         }
     })
-
-    // this.lineChartData[1].data.pop();
-    // this.GS.line(2022).subscribe({
-    //     next: data=>{
-    //         console.log(data);
-
-    //        this.line = data;
-    //        this.line.forEach(element => {
-    //            this.lineChartData[1].data.push(element.total)
-
-    //        });
-    //    }
-//    })
 
    console.log(this.lineChartData);
 

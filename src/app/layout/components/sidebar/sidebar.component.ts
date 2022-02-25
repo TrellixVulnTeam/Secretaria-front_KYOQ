@@ -9,6 +9,7 @@ import { DbService } from "../../../db.service";
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+    SCE = localStorage.getItem('SCE');
     isActive: boolean;
     collapsed: boolean;
     showMenu: string;

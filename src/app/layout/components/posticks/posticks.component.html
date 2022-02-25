@@ -1,0 +1,109 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+
+
+
+<div *ngIf="Colapse; else noColapse">
+    <div class="button pos1" (click)="chageEstate()">
+        <img class="img" src="assets/images/post-it.png" width="90px" />
+        <p class="number pos1">{{totalPostIt}}</p>
+
+    </div>
+</div>
+<ng-template #noColapse >
+    <nav [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }" class="sidebar">
+        <div style="display: flex;">
+            <img class="imgmas" (click)="Adding()" src="assets/images/mas.png"/>
+            <p class="title">Post-It!!</p>
+        </div>
+        <div class="button pos2" (click)="chageEstate()">
+            <img class="img" src="assets/images/post-it.png" width="100px"/>
+            <p class="number pos3">{{totalPostIt}}</p>
+        </div>
+
+        <div class="post" *ngIf='adding'>
+
+            <textarea #N1
+             type="text"
+             style= "width: 280px;     border: 2px solid rgb(53, 53, 53);"
+             [(ngModel)]="newPostIt.text"
+             ></textarea>
+
+            <div>
+                <img class="nok" name="echo" src="assets/images/me-gusta.png" width="25px" (click)="createPostIt()" />
+                <img name='tacho' src="assets/images/tacho.png" (click)="cancelAdding()" width="25px" style="padding-left: 3px;"/>
+            </div>
+        </div>
+
+
+        <div *ngFor="let item of PostIts.data; let i = index " style="width: 100%; " >
+            <div class="linea">
+
+                <div class="post">
+                    <textarea *ngIf= "item.post_it.echo; else Else " class="echo" name="textA" cols="40" rows="4">{{item.post_it.text}}</textarea>
+
+                    <ng-template #Else>
+                        <textarea name="textA" cols="40" rows="4"> {{item.post_it.text}} </textarea>
+                    </ng-template>
+                    <div>
+                        <img *ngIf= "item.post_it.echo; else elseEcho " class="nok" name="echo" src="assets/images/no-me-gusta.png" width="25px" (click)="echo(item.post_it)"/>
+                        <ng-template  #elseEcho>
+                            <img class="nok" name="echo" src="assets/images/me-gusta.png" width="25px" (click)="echo(item.post_it)"/>
+                        </ng-template>
+
+                        <img name='tacho' src="assets/images/tacho.png" width="25px" style="padding-left: 3px;"(click)="deletePostIt(item.id)"/>
+                    </div>
+                </div>
+
+                <p class="createby" >Creada por {{item.post_it.user.name}} </p>
+                <img (click)="To_Share(item.id)" src="assets/images/mas.png" width="15px" height="15px" style="padding-left: 3px;"/>
+                <div class="cont">Compartido con:</div>
+                  <div class="grid-container">
+                        <div class="comp" *ngFor="let shared of item.Shared_By; let i = index ">
+                            <div *ngIf = "shared.user.name != item.user.name">
+                                {{shared.user.name}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="comp grid-container"  *ngFor="let shared of item.Shared_By; let i = index ">
+                            <div *ngIf = "shared.user.name != item.user.name">
+                                <div class="grid-item1" style="list-style: none;">{{shared.user.name}}</div>
+                                </div>
+                        </div> -->
+
+                <div *ngIf = "to_share">
+                    <div *ngIf = "to_share_id === item.id">
+                        <div class="comp" *ngFor="let user of users; let i = index ">
+                            <div *ngIf = "user.name[0] != 0  ">
+                                <div *ngIf = "user.name[0] != 1 ">
+                                    <div *ngIf = "user.id != item.user_id" style="display:flex; height: 14px ;">
+                                        <table>
+                                            <th>{{item.user_id}}</th>
+                                            <th style="width: 60px;">{{user.name}}</th>
+                                            <th> <input (change)="changeCheckBox(user.id)" type="checkbox" style="padding-left: 3px;"></th>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-success small pt-0 pb-0 px-2"
+                            type="button"
+                            style="width:80px; margin-top: 5px;"
+                            (click)="save(item.post_it.id)">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+</ng-template>
+
+
+
+

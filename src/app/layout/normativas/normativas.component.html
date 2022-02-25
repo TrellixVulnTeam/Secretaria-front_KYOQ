@@ -7,6 +7,9 @@
             Volver
         </button>
     </div>
+    <p *ngFor="let alert of alerts" class="small">
+        <ngb-alert class="m-0" (close)="closeAlert(alert)" [type]="alert.type">{{alert.message}}</ngb-alert>
+    </p>
 
     <!-- search -->
     <div>
@@ -140,7 +143,8 @@
                   <td class="date" style="text-align: center; background-color:rgb(237, 237, 237);"> {{normativa.year}} </td>
                   <td class="date" style="text-align: center;"> {{normativa.reference}}</td>
                   <td class="date" style="text-align: center; background-color:rgb(237, 237, 237);"> {{normativa.agrupation.name}} </td>
-                    <td class="date" style=" text-align: center; display: flex; justify-content: center;">
+                  <td class="date" style="height: 1vh;" >
+                    <div style="display:flex; justify-content: center; height: 100%;">
                         <button class="btn btn-outline-info"
                             style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
                             type="button"
@@ -153,7 +157,8 @@
                             (click)="export(normativa.name)">
                             Descargar
                         </button>
-                    </td>
+                    </div>
+                  </td>
             </tbody>
         </table>
       </div>

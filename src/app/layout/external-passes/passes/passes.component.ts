@@ -4,11 +4,6 @@ import { DataService } from "../../../data.service";
 import {formatDate} from '@angular/common';
 import { Router } from '@angular/router';
 
-//PDF
-import { PdfMakeWrapper, Img, Txt } from "pdfmake-wrapper";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
-
-
 @Component({
     selector: 'app-passes',
     templateUrl: './passes.component.html',

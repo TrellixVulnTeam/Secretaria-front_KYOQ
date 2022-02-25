@@ -16,7 +16,7 @@ export class NormativasComponent implements OnInit {
     normativas:any;
     types:any;
     agrupations:any;
-    alerts:any;
+    public alerts: Array<any> = [];
     closeResult = '';
 
     inModal:boolean = false;
@@ -62,7 +62,7 @@ export class NormativasComponent implements OnInit {
  }
     constructor(private DB: DbService, private DATA: DataService, private router: Router, private modalService: NgbModal ) {
 
-        this.alerts = this.DB.alerts;
+       // this.alerts = this.DB.alerts;
 
     }
 
@@ -76,9 +76,7 @@ export class NormativasComponent implements OnInit {
         next:
             data=>{
                 this.agrupations = data;
-                console.log(data);
-
-             }
+            }
     })
 
 
@@ -137,7 +135,7 @@ export class NormativasComponent implements OnInit {
 
     //////////////////MODAL/////////////////////
     open(content) {
-        this.modalService.open(content, {size: 's', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.modalService.open(content, {size: 's', backdrop: 'static', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -199,6 +197,21 @@ export class NormativasComponent implements OnInit {
        this.DB.Nomativas_create(this.new_normativa).subscribe({
            next: data =>{
                console.log(data);
+
+               if( data == "Normativa Cargada"){
+                this.alerts.push({
+                    id: 1,
+                    type: 'success',
+                    message: "Normativa Cargada"
+                })
+                }else{
+                    this.alerts.push({
+                        id: 1,
+                        type: 'danger',
+                        message: 'La normativa ya existe'
+                    })
+                }
+
                this.ngOnInit();
 
            }
@@ -206,5 +219,9 @@ export class NormativasComponent implements OnInit {
        this.modalService.dismissAll();
 
 
+    }
+    public closeAlert(alert: any) {
+        const index: number = this.alerts.indexOf(alert);
+        this.alerts.splice(index, 1);
     }
     }

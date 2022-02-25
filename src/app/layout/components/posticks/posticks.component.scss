@@ -1,0 +1,159 @@
+textarea{
+    background-color: #FCF0AD;
+    border: 0;
+}
+.sidebar{
+    position: fixed;
+    z-index: 1000;
+    top: 56px;
+    right: 0px;
+    width: 325px;
+    border-radius: 0;
+    overflow-y: auto;
+    bottom: 0;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+    white-space: nowrap;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    background-color: #FCF0AD;
+    border: 2px solid rgb(53, 53, 53);
+
+}
+
+.button{
+    position: fixed;
+    padding: 2px;
+    z-index: 1000;
+    bottom: 5px;
+    right: 5px;
+    width: 62px;
+    height: 70px;
+    border-radius: 10px;
+    bottom: 5px;
+    white-space: nowrap;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.img {
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.imgmas{
+    margin-top: 10px;
+    margin-left: 3px;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px
+}
+
+.number{
+    position: fixed;
+    z-index: 1000;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    white-space: nowrap;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    font-size: 20px;
+    font-weight: bolder;
+
+}
+
+.pos1 {
+    bottom: 17px;
+    right: 35px ;
+    opacity: 80%;
+}
+
+.pos2{
+    top: 55px;
+    right: 30px ;
+    opacity: 100%;
+}
+.pos3{
+    top: 75px;
+    right: 25px ;
+    opacity: 100%;
+}
+.title{
+    font-family: 'Handlee', cursive;
+    font-size: 45px;
+    font-weight: bolder;
+    padding-left: 5px;
+    padding-top: 15px;
+
+}
+
+.post{
+    display: flex;
+    justify-content:space-between;
+    font-family: 'Handlee', cursive;
+    font-size: 16px;
+    align-items: center;
+    text-align: right;
+    width: 100%;
+    margin: 1px;
+    padding: 1px;
+    padding-top: 3px;
+
+}
+
+.echo{
+    text-decoration:line-through;
+}
+
+.nok{
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.createby{
+   font-family: 'Handlee', cursive;
+    font-size: 10px;
+    font-weight:lighter;
+    margin: 0;
+    padding-left: 5px;
+}
+
+.comp{
+    font-family: 'Handlee', cursive;
+    font-size: 10px;
+    font-weight:lighter;
+    margin: 0;
+    padding-left: 5px;
+    height: auto;
+}
+.cont{
+
+    font-family: 'Handlee', cursive;
+    font-size: 10px;
+    font-weight:bold;
+    margin: 0;
+    padding-left: 5px;
+}
+
+.linea {
+    border-bottom: 1px solid black;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+
+

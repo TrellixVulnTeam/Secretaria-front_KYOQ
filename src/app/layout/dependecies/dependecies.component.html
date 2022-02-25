@@ -109,7 +109,7 @@
                     <button class="btn btn-outline-success"
                         style=" text-align: center; font-size: small; padding: 3px; margin: 2px;"
                         type="button"
-                        (click)="Excel()">
+                        (click)="exportToExcel()">
                         Exportar
                     </button>
 
@@ -227,3 +227,78 @@
     </nav>
 </div>
 <!-- pagination end -->
+
+
+<!-- //////////////////////////////////MODAL PROVIS//////////////////////////// -->
+
+<ng-template #content let-modal>
+    <div class="modal-header"  style="padding: 2px;">
+         <div class="modal-title" style="text-align: center; padding-top: 5px; width: 90%;" id="modal-basic-title">Agregar Normativa </div>
+        <button
+        style="font-size: small;"
+        type="button" class="btn btn-m btn-danger"
+        (click)="modal.dismiss('Cross click')">
+        Volver
+    </button>
+      </div>
+
+       <div class="modal-body">
+        <div style="display: flex;">
+            <div>
+                <p style="font-size: small;margin-bottom: 2px; ">Tipo<p>
+                <select class="form-control small mr-1 p-0 b-0 text-center peke"
+                style="width: 200px; height: 25px;"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                [(ngModel)]="new_normativa.type">
+                    <option  *ngFor="let type of types" [value]="type.id" >
+                        {{type.name}}
+                    </option>
+            </select>
+
+            </div>
+            <div>
+                <p style="font-size: small; ;">Numero<p>
+                <input type="text"
+                 style="font-size: small;width: 150px"
+                 [(ngModel)]="new_normativa.number">
+            </div>
+            <div>
+                <p style="font-size: small; ">Año<p>
+                    <input type="text"
+                     style="font-size: small;width: 100px;"
+                     [(ngModel)]="new_normativa.year">
+                </div>
+            </div>
+                <div>
+            <p style="font-size: small;">Referencia<p>
+            <textarea style="font-size: small; width: 100%;"rows="5"
+                [(ngModel)]="new_normativa.reference">
+            </textarea>
+        </div>
+        <div >
+            <p style="font-size: small; text-align: left; padding-left: 40px;">Agrupación<p>
+                    <div style="display:flex; ">
+                <select class="form-control small mr-1 p-0 b-0 text-center peke"
+                    style="width: 160px; height: 25px;"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm"
+                    [(ngModel)]="new_normativa.agrupation">
+                        <option  *ngFor="let agrupation of agrupations" [value]="agrupation.id" >
+                            {{agrupation.name}}
+                        </option>
+                </select>
+                <input type="file" accept="application/pdf" (change)='seleccionarArchivo($event)'>
+            </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <button
+        style="font-size: small;"
+        type="button" class="btn btn-m btn-outline-success"
+        (click)="onSubmit()">
+        Guardar
+    </button>
+      </div>
+</ng-template>
+
