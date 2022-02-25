@@ -57,22 +57,18 @@
                 </div>
 
                 <p class="createby" >Creada por {{item.post_it.user.name}} </p>
-                <img (click)="To_Share(item.id)" src="assets/images/mas.png" width="15px" height="15px" style="padding-left: 3px;"/>
-                <div class="cont">Compartido con:</div>
-                  <div class="grid-container">
-                        <div class="comp" *ngFor="let shared of item.Shared_By; let i = index ">
-                            <div *ngIf = "shared.user.name != item.user.name">
-                                {{shared.user.name}}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- <div class="comp grid-container"  *ngFor="let shared of item.Shared_By; let i = index ">
-                            <div *ngIf = "shared.user.name != item.user.name">
-                                <div class="grid-item1" style="list-style: none;">{{shared.user.name}}</div>
+                <div style="display: flex;">
+                    <img (click)="To_Share(item.id)" src="assets/images/mas.png" width="15px" height="15px" style="padding-left: 3px;"/>
+                    <div class="cont">Compartido con:</div>
+                    <div class="grid-container">
+                            <div class="comp" *ngFor="let shared of item.Shared_By; let i = index ">
+                                <div *ngIf = "shared.user.name != item.user.name">
+                                    {{shared.user.name}}
                                 </div>
-                        </div> -->
+                            </div>
+
+                        </div>
+                </div>
 
                 <div *ngIf = "to_share">
                     <div *ngIf = "to_share_id === item.id">
@@ -81,9 +77,8 @@
                                 <div *ngIf = "user.name[0] != 1 ">
                                     <div *ngIf = "user.id != item.user_id" style="display:flex; height: 14px ;">
                                         <table>
-                                            <th>{{item.user_id}}</th>
-                                            <th style="width: 60px;">{{user.name}}</th>
                                             <th> <input (change)="changeCheckBox(user.id)" type="checkbox" style="padding-left: 3px;"></th>
+                                            <th style="width: 70px;">{{user.name}}</th>
                                         </table>
                                     </div>
                                 </div>
@@ -91,7 +86,7 @@
                         </div>
                         <button class="btn btn-outline-success small pt-0 pb-0 px-2"
                             type="button"
-                            style="width:80px; margin-top: 5px;"
+                            style="width:80px; margin-top: 5px; margin-bottom: 2px;"
                             (click)="save(item.post_it.id)">
                             Guardar
                         </button>

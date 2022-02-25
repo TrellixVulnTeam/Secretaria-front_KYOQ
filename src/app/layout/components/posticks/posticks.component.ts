@@ -141,6 +141,7 @@ export class PosticksComponent implements OnInit {
             this.to_share=true
             this.to_share_id = id;
         }
+
     }
 
     changeCheckBox(id){
@@ -169,11 +170,10 @@ export class PosticksComponent implements OnInit {
             next:
                 data =>{
                     console.log(data);
-
+                    this.ngOnInit();
                 }
         })
 
-        this.ngOnInit();
 
 
     }
